@@ -83,13 +83,14 @@ int main()
     // define a pointer c88 to pointer c8
     // first rvalue is some kind of &, &c8, define **c88 = &c8
     // *c8 is array[7] of char, char [7]; **c88 -> c8
-    auto **c88 = &c8;
-    cout << "*c88 is: " << *c88 << endl; //pointer c8 (point to array "abc"), hold the address of "abc", 
-    cout << "c9 is address of 'a' : " << c9 << endl; // hold the address of 'a'
-    cout << "address of 'a': " << &((*c8)[0]) << endl; // the address of 'a'
-    cout << "&c8 is: " << &c8 << endl; // address of pointer c8
-    cout << "**c88 is: " << **c88 << endl; // *c8, which is 'abc'
-    cout << "c88 is: " << c88 << endl; // address of pointer c8
+    auto **c88 = &c8; // **c88 is *(*c88) is *(c8) is "abc" (char[7]); equals {char (**c88)[7] = &c8;}
+    cout << "*c88 is: " << *c88 << endl; //*c88 is pointer c8, pointer c8's value (point to array "abc"), hold the address of "abc", 0x16fdff0a0
+    cout << "c8 is: " << c8 << endl; //pointer c8, 0x16fdff0a0
+    cout << "c9 is address of 'a' : " << c9 << endl; //  abc ???
+    cout << "address of 'a': " << &((*c8)[0]) << endl; // abc ???
+    cout << "&c8 is: " << &c8 << endl; // address of pointer c8, 0x16fdff050
+    cout << "**c88 is: " << **c88 << endl; // *c8, which is "abc"
+    cout << "c88 is: " << c88 << endl; // pointer c88, its value is the address of pointer c8, 0x16fdff050
 
     
 
