@@ -42,11 +42,24 @@ int main()
     {
         get(ia, i) = i;
     }
-    
+
     cout << "Output ia: " << endl;
     for (int i = 0; i!=10; ++i)
     {
         cout << ia[i] << " " << endl;
     }
     cout << endl;
+
+    int a = 11;
+    int b = 12;
+    int *ap = &a;
+    int *bp = &b;
+    int* &ar = ap;
+    int* &br = bp;
+    int *inter = ar;
+    ar = br;
+    br = inter;
+    cout << a << " " << b << endl;
+    cout << *ap << " " << *bp << endl; 
+
 }
