@@ -18,7 +18,6 @@ void vecprint(const vector<string> &svec1, decltype(svec1.size()) i)
         cout << svec1[i] << " ";
         vecprint(svec1, i+1);
     } else {
-        cout << "Start point already out of vector size." << endl;
         return;
     }
 }
