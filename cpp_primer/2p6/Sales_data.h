@@ -15,6 +15,13 @@ struct Sales_data {
     std::string bookNo;
     unsigned units_sold = 0;
     double revenue = 0.0;
+    // add constructors
+    // first only initialize bookNo
+    Sales_data(const std::string &s):bookNo(s){}
+    // second only initialize units_sold and revenue y
+    Sales_data(unsigned int x, double y): units_sold(x), revenue(y) {}
+    //thrid use default initializer
+    Sales_data() = default;
 };
 // nonmember Sales_data interface functions
 Sales_data add(const Sales_data&, const Sales_data&);
