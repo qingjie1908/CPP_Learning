@@ -3,7 +3,7 @@
 #include <vector>
 #include <stdexcept>
 #include <cassert>
-#include "Sales_data.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/2p6/Sales_data.h"
 
 using std::cin;
 using std::cout;
