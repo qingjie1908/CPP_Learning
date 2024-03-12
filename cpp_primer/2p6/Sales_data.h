@@ -1,6 +1,7 @@
 #ifndef SALES_DATA_H
 #define SALES_DATA_H
 #include <string>
+// pwd, /Users/qingjie/github/CPP_Learning/cpp_primer/2p6/Sales_data.h
 struct Sales_data {
     // new members: operations on Sales_data objects
     // A "const function", denoted with the keyword const after a function declaration, 

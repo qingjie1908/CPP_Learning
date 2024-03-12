@@ -45,7 +45,7 @@ int main()
     cout << "trans_3 bookNo is: " << trans_3.bookNo << endl; // the first input newnew
     cout << "trans_3 units_sold is: " << trans_3.units_sold << endl; // the second input 10
     cout << "trans_3 revenue is: " << trans_3.revenue << endl; // 10*100 = 1000
-
+    // if using /2p6/Sales_data_copy.h, which read is defined inside class, then calling read() should change to total.read() and trans.read()
     if (read(cin, total)) // read first transaction
     {
         while(read(cin, trans)) // read remaining transaction
