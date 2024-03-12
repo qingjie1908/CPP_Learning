@@ -14,6 +14,9 @@ struct Person{
     std::string get_addr() const {return address;} // get func only read object member
     Person():name("Qingjie"),address("Library"){} // own version defalut constructor
     // if use Person() = default; name and address will be empty string 
+
+    // add another constructor which need input two arguments when create the object
+    Person(std::string &s_name, std::string &s_addr):name(s_name),address(s_addr){}
 };
 std::istream &read_person(std::istream &is, Person &pers)
 {
