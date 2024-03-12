@@ -22,9 +22,12 @@ struct Sales_data {
     // second only initialize units_sold and revenue y
     Sales_data(unsigned int x, double y): units_sold(x), revenue(y) {}
     //thrid use default initializer
-    Sales_data() = default;
+    // Sales_data() = default; // only if the compiler support in-class initilizers for this class data members
     // add declaration only, no defination of another constructor
     Sales_data(std::istream &is);
+    //fifth, another default constructor when conpliler does not supprot in-class initializers, we should use the constructor initializer list to initialize every member of the class
+    // since this constructor take no arguments, then we should not keep Sale_data() = default, otherwise it is re-declaration default constructor
+    Sales_data():bookNo("abc"), units_sold(11),revenue(100){}
 };
 // nonmember Sales_data interface functions
 Sales_data add(const Sales_data&, const Sales_data&);
