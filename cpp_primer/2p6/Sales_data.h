@@ -22,11 +22,19 @@ struct Sales_data {
     Sales_data(unsigned int x, double y): units_sold(x), revenue(y) {}
     //thrid use default initializer
     Sales_data() = default;
+    // add declaration only, no defination of another constructor
+    Sales_data(std::istream &is);
 };
 // nonmember Sales_data interface functions
 Sales_data add(const Sales_data&, const Sales_data&);
 std::ostream &print(std::ostream&, const Sales_data&);
 std::istream &read(std::istream&, Sales_data&);
+// defining a constructor outside the class body, must be declared inside class first
+// this constructor define must be put after function declaration read(), other wise it will not find read
+Sales_data::Sales_data(std::istream &is)
+{
+    read(is, *this); // when detect 3 inputs, it will match to *this bookNo, units_sold and price, then jump to next expression if cin is not in while loop
+}
 Sales_data& Sales_data::combine(const Sales_data &rhs)
 {
     units_sold += rhs.units_sold;
