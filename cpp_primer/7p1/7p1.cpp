@@ -40,6 +40,12 @@ int main()
     cout << "trans_2 units_sold is: " << trans_2.units_sold << endl; // 3
     cout << "trans_2 revenue is: " << trans_2.revenue << endl; //5
 
+    //using  istream& constructor in header
+    Sales_data trans_3(cin); // for example input: newnew 10 100; no need ctrl-D, hit enter then it will continue output when detect 3 inputs
+    cout << "trans_3 bookNo is: " << trans_3.bookNo << endl; // the first input newnew
+    cout << "trans_3 units_sold is: " << trans_3.units_sold << endl; // the second input 10
+    cout << "trans_3 revenue is: " << trans_3.revenue << endl; // 10*100 = 1000
+
     if (read(cin, total)) // read first transaction
     {
         while(read(cin, trans)) // read remaining transaction
