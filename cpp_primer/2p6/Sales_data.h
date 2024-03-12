@@ -2,20 +2,12 @@
 #define SALES_DATA_H
 #include <string>
 // pwd, /Users/qingjie/github/CPP_Learning/cpp_primer/2p6/Sales_data.h
-struct Sales_data {
-    // new members: operations on Sales_data objects
-    // A "const function", denoted with the keyword const after a function declaration, 
-    // makes it a compiler error for this class function to change a data member of the class. 
-    // However, reading of a class variables is okay inside of the function, 
-    // but writing inside of this function will generate a compiler error.
-    // see https://stackoverflow.com/questions/3141087/what-is-meant-with-const-at-end-of-function-declaration
-    std::string isbn() const {return bookNo;}
-    Sales_data& combine(const Sales_data&);
-    double avg_price() const;
-    // data members are unchanged as follows
-    std::string bookNo;
-    unsigned units_sold = 0;
-    double revenue = 0.0;
+class Sales_data {
+// add friend declaration of nonmember function add() print() read(), otherwise these non-member func cannot use Sales_data private members
+friend Sales_data add(const Sales_data&, const Sales_data&);
+friend std::ostream &print(std::ostream&, const Sales_data&);
+friend std::istream &read(std::istream&, Sales_data&);
+public: // usually constructors and some member functions are public
     // add constructors
     // first only initialize bookNo
     Sales_data(const std::string &s):bookNo(s){}
@@ -26,10 +18,25 @@ struct Sales_data {
     // add declaration only, no defination of another constructor
     Sales_data(std::istream &is);
     //fifth, another default constructor when conpliler does not supprot in-class initializers, we should use the constructor initializer list to initialize every member of the class
-    // since this constructor take no arguments, then we should not keep Sale_data() = default, otherwise it is re-declaration default constructor
+    // since this constructor take no arguments, it is a default constructor, then we should not keep Sale_data() = default, otherwise it is re-declaration default constructor
     Sales_data():bookNo("abc"), units_sold(11),revenue(100){}
+    // new members: operations on Sales_data objects
+    // A "const function", denoted with the keyword const after a function declaration, 
+    // makes it a compiler error for this class function to change a data member of the class. 
+    // However, reading of a class variables is okay inside of the function, 
+    // but writing inside of this function will generate a compiler error.
+    // see https://stackoverflow.com/questions/3141087/what-is-meant-with-const-at-end-of-function-declaration
+    std::string isbn() const {return bookNo;}
+    Sales_data& combine(const Sales_data&);
+private:
+    double avg_price() const;
+    // data members are unchanged as follows
+    std::string bookNo;
+    unsigned units_sold = 0; // this 0 only effect when use Sales_data() = default;
+    double revenue = 0.0; // this 0.0 only effect when use Sales_data() = default;
+
 };
-// nonmember Sales_data interface functions
+// nonmember Sales_data interface functions, outside class ordinary declaration needed even we have friend declaration inside class
 Sales_data add(const Sales_data&, const Sales_data&);
 std::ostream &print(std::ostream&, const Sales_data&);
 std::istream &read(std::istream&, Sales_data&);
