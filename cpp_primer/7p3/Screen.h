@@ -13,11 +13,26 @@ public:
                                     // in-class intializer only use = form or {} form initialization
     Screen(pos ht, pos wd, pos num_blanks): height(ht), width(wd) {contents = std::string(num_blanks, ' ');}
                                         // same as : height(ht), width(wd), contents(num_blanks, ' ') {}
-    Screen(pos ht, pos wd, char c): height(ht), width(wd), contents(1, c){}                              
+    // Screen(pos ht, pos wd, char c): height(ht), width(wd), contents(1, c){}
+    Screen &set(char);
+    Screen &set(pos, pos, char);                              
     char get() const // get the character at the cursor
         { return contents[cursor];} // implicity inline
     inline char get(pos ht, pos wd) const; // explicitly inline, overloaded member func
     Screen &move(pos r, pos c); // can be made inline later
+    // display fucntion overloaded on whether the object is const or not
+    // const object can only call const member func
+    // non-const object can call both non-const and const member func, but non-const member func is better match
+    Screen& display(std::ostream &os)
+    {
+        do_display(os);
+        return *this;
+    }
+    const Screen& display(std::ostream &os) const // const member func return *this should have a return type this is reference to const
+    {
+        do_display(os);
+        return *this;
+    }
 private:
     pos cursor = 0;
     pos height = 0, width = 0;
@@ -26,6 +41,11 @@ private:
     // should use std::string contents = std::string(10, 'a')
     // or use std::string contents = "aaa"
     std::string contents; // no in-class initializer, will use default constructor or other constructor, if constructor not include contents, it will be initialized to empty string
+    // when non-const object call non-const display() then call const do_display(), 'this' pointer will implicitly converted from pointer to non-const to a pointer to const
+    void do_display(std::ostream &os) const // functions do the work of displaying a screen, which is read only, not write to the object
+    {
+        os << contents;
+    }
 };
 inline Screen& Screen::move(pos r, pos c) // can specify inline on the defination
 {
@@ -37,5 +57,15 @@ char Screen::get(pos r, pos c) const // declared as inline in the class
 {
     pos row =  r * width; //compute row location
     return contents[row + c]; // return character at the given column
+}
+inline Screen& Screen::set(char c)
+{
+    contents[cursor] = c; // set the new value at the current cursor location
+    return *this; // return this object as an lvalue
+}
+inline Screen& Screen::set(pos r, pos col, char ch)
+{
+    contents[r*width + col] = ch;
+    return *this;
 }
 #endif
