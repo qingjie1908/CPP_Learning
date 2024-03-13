@@ -13,3 +13,17 @@ int main()
 
     return 0;
 }
+
+// ======== Ex 7.31 ========
+/*
+class Y;
+class X
+{
+    Y *p1;  // must have declaration of class Y first
+};
+
+class Y
+{
+    X obj1;
+};
+*/
