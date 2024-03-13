@@ -52,7 +52,7 @@ Sales_data& Sales_data::combine(const Sales_data &rhs)
     revenue += rhs.revenue;
     return *this; // if we declare object Sales_data total; then call total.combine(trans), then *this return 'total' object
 }
-double Sales_data::avg_price() const
+inline double Sales_data::avg_price() const
 {
     if (units_sold)
         return revenue/units_sold;
