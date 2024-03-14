@@ -4,6 +4,8 @@
 #include <vector>
 class Screen
 {
+// Window_mgr members can access the private parts of class Screen
+friend class Window_mgr;
 public:
     typedef std::string::size_type pos;
     Screen() = default; // needed since we have other constructors
@@ -46,6 +48,7 @@ private:
     {
         os << contents;
     }
+    pos size() const;
 };
 inline Screen& Screen::move(pos r, pos c) // can specify inline on the defination
 {
@@ -68,4 +71,23 @@ inline Screen& Screen::set(pos r, pos col, char ch)
     contents[r*width + col] = ch;
     return *this;
 }
+Screen::pos Screen::size() const
+{
+    return height * width;
+}
+/*
+// typedef std::string Type;
+// Type initVal();
+class Exercise {
+   public:
+       typedef double Type;
+       Type setVal(Type);
+       Type initVal();
+   private:
+       int val;
+};
+Exercise::Type Exercise::setVal(Type parm) {
+       val = parm + initVal();
+return val; }
+*/
 #endif
