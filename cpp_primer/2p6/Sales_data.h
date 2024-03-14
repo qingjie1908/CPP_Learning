@@ -17,7 +17,7 @@ public: // usually constructors and some member functions are public
     // although inside () is not empty, but it provide parameter s with default argument "acy", so it can be omitted when Sales_data object, using default construtor version of this
     // or it can Sales_data("sdfas"), using argument "sdfas" to replace default argument "acy", this time this constructor is not using its default cosntrutor version
     // if s has no default argument, then it cannot serve as default construtor
-    Sales_data(std::string s = "acy"):bookNo(s){}
+    // Sales_data(std::string s = "acy"):bookNo(s){}
 
     // if want to supply cin as default argument to the constructor that takes an istream&
     // it will server as two construtors
@@ -26,6 +26,27 @@ public: // usually constructors and some member functions are public
     // but remember each class only has one default constructor, there cannot be another construtor takes default argument as default constructor in this class
     // which means has Sales_data(std::string s = "acy"):bookNo(s){} at the same time is error
     // Sales_data(std::istream &is = std::cin);
+
+    // nondelegating constructor
+    Sales_data(std::string s, unsigned cnt, double price):bookNo(s), units_sold(cnt), revenue(cnt * price){
+        std::cout << "This is non-delegationg constructor initialize members from corresponding arguments." << std::endl;
+    }
+    // delegating constructor 1: default construtor to delegate intilization to nondelegating constructor
+    Sales_data():Sales_data("", 0, 0) {
+        std::cout << "Default constructor delegate to nondelegating construtor with three parameters." << std::endl;
+    }
+    // delegating constructor 2: constructor takes a string delegates to three-argument version
+    Sales_data(std::string s): Sales_data(s, 0, 0) {
+        std::cout << "Construtor takes only string s then delegate to nondelegating construtor with three parameters." << std::endl;
+    }
+    // delegating constructor 3: construtor takes istream then delegate to default constructor then execute this delegate function body
+    Sales_data(std::istream &is):Sales_data(){
+        std::cout << "Constructor takes istream delegate to default construtor" << std::endl
+        << "After default construtor finish member initialization and its function body" << std::endl
+        << "Back to this construtor and finish its own funtion body" << std::endl;
+        read(is, *this); 
+    }
+
 
     // first only initialize bookNo
     // Sales_data(const std::string &s):bookNo(s){}
@@ -37,7 +58,7 @@ public: // usually constructors and some member functions are public
     // Sales_data() = default; // only if the compiler support in-class initilizers for this class data members
 
     // add declaration only, no defination of another constructor
-    Sales_data(std::istream &is);
+    // Sales_data(std::istream &is);
 
     //fifth, another default constructor when conpliler does not supprot in-class initializers, we should use the constructor initializer list to initialize every member of the class
     // since this constructor take no arguments, it is a default constructor, then we should not keep Sale_data() = default, otherwise it is re-declaration default constructor
@@ -65,10 +86,12 @@ std::ostream &print(std::ostream&, const Sales_data&);
 std::istream &read(std::istream&, Sales_data&);
 // defining a constructor outside the class body, must be declared inside class first
 // this constructor define must be put after function declaration read(), other wise it will not find read
+/*
 Sales_data::Sales_data(std::istream &is)
 {
     read(is, *this); // when detect 3 inputs, it will match to *this bookNo, units_sold and price, then jump to next expression if cin is not in while loop
 }
+*/
 Sales_data& Sales_data::combine(const Sales_data &rhs)
 {
     units_sold += rhs.units_sold;
