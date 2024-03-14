@@ -9,17 +9,40 @@ friend std::ostream &print(std::ostream&, const Sales_data&);
 friend std::istream &read(std::istream&, Sales_data&);
 public: // usually constructors and some member functions are public
     // add constructors
+
+    // page 290: defines the default constructor as well as one that takes a string argument
+    // this construtor severs as two constructors
+    // first is default constructor, when Sales_data object; object.bookNo has default value acy
+    // second as constructor takes argument, when Sale_data object("abcd"); object.bookNo has value abcd
+    // although inside () is not empty, but it provide parameter s with default argument "acy", so it can be omitted when Sales_data object, using default construtor version of this
+    // or it can Sales_data("sdfas"), using argument "sdfas" to replace default argument "acy", this time this constructor is not using its default cosntrutor version
+    // if s has no default argument, then it cannot serve as default construtor
+    Sales_data(std::string s = "acy"):bookNo(s){}
+
+    // if want to supply cin as default argument to the constructor that takes an istream&
+    // it will server as two construtors
+    // first default constructor, when provide no argment, Sales_data object, object will take default argument std::cin
+    // second serve as user defined constructor, Sales_data object(std::cin) or Sales_data object(std::cout) ...
+    // but remember each class only has one default constructor, there cannot be another construtor takes default argument as default constructor in this class
+    // which means has Sales_data(std::string s = "acy"):bookNo(s){} at the same time is error
+    // Sales_data(std::istream &is = std::cin);
+
     // first only initialize bookNo
-    Sales_data(const std::string &s):bookNo(s){}
+    // Sales_data(const std::string &s):bookNo(s){}
+
     // second only initialize units_sold and revenue y
     Sales_data(unsigned int x, double y): units_sold(x), revenue(y) {}
+
     //thrid use default initializer
     // Sales_data() = default; // only if the compiler support in-class initilizers for this class data members
+
     // add declaration only, no defination of another constructor
     Sales_data(std::istream &is);
+
     //fifth, another default constructor when conpliler does not supprot in-class initializers, we should use the constructor initializer list to initialize every member of the class
     // since this constructor take no arguments, it is a default constructor, then we should not keep Sale_data() = default, otherwise it is re-declaration default constructor
-    Sales_data():bookNo("abc"), units_sold(11),revenue(100){}
+    // Sales_data():bookNo("abc"), units_sold(11),revenue(100){}
+
     // new members: operations on Sales_data objects
     // A "const function", denoted with the keyword const after a function declaration, 
     // makes it a compiler error for this class function to change a data member of the class. 
@@ -28,7 +51,7 @@ public: // usually constructors and some member functions are public
     // see https://stackoverflow.com/questions/3141087/what-is-meant-with-const-at-end-of-function-declaration
     std::string isbn() const {return bookNo;}
     Sales_data& combine(const Sales_data&);
-private:
+public:
     double avg_price() const;
     // data members are unchanged as follows
     std::string bookNo;
