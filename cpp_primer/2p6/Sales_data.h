@@ -36,7 +36,7 @@ public: // usually constructors and some member functions are public
         std::cout << "Default constructor delegate to nondelegating construtor with three parameters." << std::endl;
     }
     // delegating constructor 2: constructor takes a string delegates to three-argument version
-    Sales_data(std::string s): Sales_data(s, 0, 0) {
+    explicit Sales_data(std::string s): Sales_data(s, 0, 0) {
         std::cout << "Construtor takes only string s then delegate to nondelegating construtor with three parameters." << std::endl;
     }
     // delegating constructor 3: construtor takes istream then delegate to default constructor then execute this delegate function body
