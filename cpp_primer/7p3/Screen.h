@@ -2,6 +2,7 @@
 #define SCREEN_H
 #include <string>
 #include <vector>
+// /Users/qingjie/github/CPP_Learning/cpp_primer/7p3/Screen.h
 class Screen
 {
 // Window_mgr members can access the private parts of class Screen
