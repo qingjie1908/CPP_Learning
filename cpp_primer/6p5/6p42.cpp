@@ -26,6 +26,9 @@ int main()
     cout << make_plural(1, "success") << endl;
     cout << make_plural(2, "failure") << endl;
 
+    char* char1 = init(10);
+    cout << char1 << endl;
+
     return 0;
 }
 
