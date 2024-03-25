@@ -1,0 +1,5 @@
+This is input file.
+Program read from this file.
+Then do some process
+
+
