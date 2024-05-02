@@ -1,0 +1,4 @@
+this is a new file.
+we want to print this file.
+this is a txt.
+we want to print it.
