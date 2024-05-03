@@ -9,7 +9,7 @@ struct PersonInfo {
     std::vector<std::string> phones;
 };
 
-bool valid(std::string phone_number)
+bool valid(const std::string &phone_number) // we dont change phone number
 {
     bool bit;
     if (!phone_number.empty()) {
