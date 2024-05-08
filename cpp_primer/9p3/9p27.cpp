@@ -16,12 +16,17 @@ void find_n_insert(std::forward_list<std::string> &f_lst, std::string const& str
         if(*curr == str1){ // find first occurence of str1
             //insert str2 after str1
             prev = f_lst.insert_after(curr, str2); // insert str2 after str1, and now return iter point to str2
-            curr = ++prev; //update curr
+            ++ curr; ++ curr; //update curr
             break; // since only find one occur, break, 
         } else {
             prev = curr;
             ++curr;
         }
+    }
+
+    if (curr == f_lst.end()) {
+        //scan all and not find element
+        f_lst.insert_after(prev, str2); //note pre is the last element now
     }
 }
 
