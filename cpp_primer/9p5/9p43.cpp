@@ -7,7 +7,7 @@ void find_n_replace(std::string &s, std::string &oldval, std::string &newval)
     auto iter = s.begin(); // scan each char in string s
     
     while(iter!= s.end()){ 
-        if(*iter == oldval[0]){// match the first char in old, since last match insert may exceeds current s.size() and move the iter out of current end in previous while loop, need to check
+        if(*iter == *oldval.begin()){// match the first char in old, since last match insert may exceeds current s.size() and move the iter out of current end in previous while loop, need to check
             std::string check_string(iter, iter+oldval.size()); // take same length in s to compare with oldval, not include last element in range
             //if iter+oldval.size() exceeds s.size(), it just copy to the end of s
             if(check_string == oldval){ //match oldval, which also means iter+oldval.size() not exceeds s.size()
