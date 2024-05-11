@@ -103,5 +103,14 @@ int main()
     std::cout << process_exprs(expr4) << std::endl;
     std::cout << process_exprs(expr5) << std::endl;
 
+    /*output
+    12+23 * 12-23 / 9 -5+5
+    12+34-56-78-9+10
+    12+34-56-78-9+10
+
+
+    this is not a valid expression since they don't have paird open-close parenthesis.
+    this is not a valid expression since they don't have paird open-close parenthesis.
+    */
     return 0;
 }
