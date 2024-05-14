@@ -22,7 +22,7 @@ int main()
 
     auto iter = vec_s.begin();
     
-    while(iter != iter_part){ //iter_part point to first string element which size is less than 5
+    while(iter != vec_s.end() && iter != iter_part){ //iter_part point to first string element which size is less than 5
         std::cout << *iter << " ";
         ++iter;
     }
