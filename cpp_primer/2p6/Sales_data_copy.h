@@ -1,6 +1,7 @@
 #ifndef SALES_DATA_COPY_H
 #define SALES_DATA_COPY_H
 #include <string>
+#include <iostream>
 // pwd, /Users/qingjie/github/CPP_Learning/cpp_primer/2p6/Sales_data_copy.h
 struct Sales_data {
     // new members: operations on Sales_data objects
