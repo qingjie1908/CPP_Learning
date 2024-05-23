@@ -44,6 +44,9 @@ public:
     StrBlobPtr begin(); // return StrBlobPtr to first element
     StrBlobPtr end(); // return one past the element
 
+    StrBlobPtr begin() const;
+    StrBlobPtr end() const;
+
     //std::shared_ptr<std::vector<std::string>> data;
 
 private:
@@ -103,6 +106,12 @@ public:
     StrBlobPtr(StrBlob& a, size_t sz = 0):wptr(a.data), curr(sz){}
     //we cannot bind a StrBlobPtr to a const StrBlob object. 
     //This restriction follows from the fact that the constructor takes a reference to a nonconst object of type StrBlob.
+
+    //we can defind below constructor for const StrBlob obj,
+    //although 
+    StrBlobPtr(const StrBlob& a, size_t sz = 0):wptr(a.data), curr(sz){}
+
+
     std::string& deref() const;
     StrBlobPtr& incr();
 
@@ -156,7 +165,17 @@ StrBlobPtr StrBlob::begin()
     return StrBlobPtr(*this); //use the second construtor, which the curr is defautl = 0, point to first element in vector data point to
 }
 
+StrBlobPtr StrBlob::begin() const
+{
+    return StrBlobPtr(*this); //use the second construtor, which the curr is defautl = 0, point to first element in vector data point to
+}
+
 StrBlobPtr StrBlob::end()
+{
+    return StrBlobPtr(*this, data->size()); //use the second construtor, which the curr = obj a.data->size(),
+}
+
+StrBlobPtr StrBlob::end() const
 {
     return StrBlobPtr(*this, data->size()); //use the second construtor, which the curr = obj a.data->size(),
 }
