@@ -49,6 +49,8 @@ std::ostream& print(std::ostream& os, QueryResult& result_obj){
             os << "\t" << "(line " << curr->first << ") " << curr->second << std::endl;
             ++curr;
         }
+    } else {
+        os << "not find this element." << std::endl;
     }
     return os;
 }

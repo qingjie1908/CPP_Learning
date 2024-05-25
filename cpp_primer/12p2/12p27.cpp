@@ -55,6 +55,11 @@ int main()
             (line 7)     qingjie is qingjie!
 
     enter word to look for, or q to quit: 
+    banana
+    not find this element.
+
+    enter word to look for, or q to quit: 
+    q
     */
 
 }
