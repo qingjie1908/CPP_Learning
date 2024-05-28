@@ -11,13 +11,13 @@ public:
             ////note this direct initialized constructor value copy to new memory, not copy pointer
             //so if we create obj1("name", 2, &obj2, &obj3)
             //it not add obj2,3 as obj1 left right node, but create another two new nodes with same contents as obj2,3
-            //and use those two nodes as obj1 sub nodes, acutually not wanted
+            //and use those two nodes as obj1 sub nodes, 
             /*
             if(n1 != nullptr) left = new TreeNode(*n1); else left =nullptr;
             if(n2 != nullptr) right = new TreeNode(*n2); else right = nullptr;
             */
 
-            //wanted version: pointer copy constructor not value copy
+            //pointer copy constructor not value copy
             //add real obj2 and obj3 as subnodes, not a new memory of same contents as obj2 and obj3
             left = n1;
             right = n2;

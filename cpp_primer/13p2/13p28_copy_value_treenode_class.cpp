@@ -11,7 +11,7 @@ public:
             ////note this direct initialized constructor value copy to new memory, not copy pointer
             //so if we create obj1("name", 2, &obj2, &obj3)
             //it not add obj2,3 as obj1 left right node, but create another two new nodes with same contents as obj2,3
-            //and use those two nodes as obj1 sub nodes, acutually not wanted
+            //and use those two nodes as obj1 sub nodes,
             if(n1 != nullptr) left = new TreeNode(*n1); else left =nullptr;
             if(n2 != nullptr) right = new TreeNode(*n2); else right = nullptr;
         } 
@@ -36,8 +36,10 @@ public:
         }
     }
 
+    std::string value; //able to change node name for debug
+
 private:
-    std::string value;
+    //std::string value;
     int count;
     TreeNode *left;
     TreeNode *right;
@@ -74,6 +76,10 @@ TreeNode& TreeNode::operator=(const TreeNode& rhs){
     count = rhs.count;
 
     TreeNode* left_tmp = new TreeNode(*rhs.left);
+    //left_temp is not built in pointer, but point to dynamic memory
+    //when = operator func ends, left_temp this pointer destroyed
+    //but that dynamic memory still exists, and we allocate it to this.left to manage
+    //so that dynamic memory free responsibility is in this class destructor
     if(left != nullptr){
         delete left;
         left = left_tmp;
