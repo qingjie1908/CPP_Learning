@@ -17,7 +17,7 @@ public:
     //also cannot be const
     HasPtr& operator=(HasPtr rhs);
 
-    bool operator<(HasPtr& rhs);
+    bool operator<(const HasPtr &rhs) const;
 
     //destuctor declaration, it must have no return type and no parameter
     ~HasPtr();
@@ -88,7 +88,16 @@ HasPtr& HasPtr::operator=(HasPtr rhs)
     return *this;
 }
 
-bool HasPtr::operator<(HasPtr &rhs)
+//operator should use const paramenter, cause we do not want to change it
+//also it should add const as const member function
+//const member func can be called with both non-const and const object
+//for our insertion sort, it called on non-const vec1[i];
+
+//but std::sort() use const obj as paramenter for its predicate
+//like [](const HasPtr& obj1, const HasPtr& obj2)->bool{return (obj1 < obj2);
+//so fisrt, the parameter for <() func should be const
+//second, it should add const at last indicate const member function
+bool HasPtr::operator<(const HasPtr &rhs) const
 {
     if(i >= rhs.i)
         return false;
@@ -152,7 +161,13 @@ int main()
         }
         i = start;
     }
-    //after swap, &vec1[0] is unchange, its elemnent change to "E",0
+    //after swap, &vec1[0] is unchange, its elemnent change to "E",0, called 10 times own defined swap
+
+    //std::sort(vec1.begin(), vec1.end(), [](const HasPtr& obj1, const HasPtr& obj2)->bool{return (obj1 < obj2);});
+    //use copy constructor for obj1, obj2
+    //called own defined swap 19 times;
+
+    //std::sort(vec1.begin(), vec1.end()); //same as last sort, since we provide operator< func
 
     //auto item = vec1[0];
     for(auto item : vec1){
