@@ -132,6 +132,7 @@ int main()
         }
         i = start;
     }
+    //after swap, &vec1[0] is unchange, its elemnent change to "E",0
 
     //auto item = vec1[0];
     for(auto item : vec1){
