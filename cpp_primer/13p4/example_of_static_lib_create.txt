@@ -1,0 +1,17 @@
+g++ -c -std=c++20 -Wall Folder_member_func.cpp
+g++ -c -std=c++20 -Wall Message_member_func.cpp
+
+//after -c compile, we get object file .o
+
+//now archive these object file together into static library .a
+
+ar rvs lib13p4.a Folder_member_func.o Message_member_func.o
+
+//output int terminal
+//ar: creating archive lib13p4.a
+//a - Folder_member_func.o
+//a - Message_member_func.o
+
+//now compile .a library and main.cpp into executable file
+
+g++ -o myexecutable 13p4.cpp lib13p4.a
