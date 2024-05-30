@@ -19,6 +19,8 @@ int main()
     //&(M1.folder) and &(M_T1.folders) are also different, they are different set
     //just inside set, they contain same Folder pointer value &F1, &F2
 
+    //if one obj out of scope, it wont affect another obj.folders, set also use value copy
+
     Message M_T2(M2);
 
     Folder F_T1;
