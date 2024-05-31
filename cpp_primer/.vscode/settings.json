@@ -71,5 +71,7 @@
         "map": "cpp",
         "__tree": "cpp",
         "set": "cpp"
-    }
+    },
+    "clangd.checkUpdates": true,
+    "makefile.makefilePath": "/Users/qingjie/github/CPP_Learning/cpp_primer/13p4"
 }
