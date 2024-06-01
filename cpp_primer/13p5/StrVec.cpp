@@ -37,9 +37,14 @@ void StrVec::free(){
     // may not pass deallocate a 0 pointer; if elements is 0,there’s no work to do
     //like when we default construct obj, then push_back, it will call free() this empty obj first, then reallocate
     if (elements) {
+        //ex 13.43, use lamda to replace  for loop destroy
+        //static variable alloc not need to be in capture list
+        std::for_each(elements, first_free, [](std::string s)->void{std::allocator_traits<decltype(alloc)>::destroy(alloc, &s);});
+        /*
         for(auto p = first_free; p != elements;){
             std::allocator_traits<decltype(alloc)>::destroy(alloc, --p); //prefix, since first_free point to one-past-end, which is unconstructed memory, cannot be destroy
         }
+        */
         //the destroy run the std::string destructor
 
         alloc.deallocate(elements, n); //n must be the same as the orginal allocated memory (include constructed and unconstructed)
