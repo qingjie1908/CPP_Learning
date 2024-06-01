@@ -85,10 +85,10 @@ QueryResult TextQuery::query(std::string find_word){
         //find each line in vec_file using this line number
 
         for(auto line_number : word_line_map[find_word]){
-//            auto start = vec_file.begin();
-//            auto str_wanted = *(start + (line_number - 1));
+            auto start = vec_file.begin();
+            auto str_wanted = *(start + (line_number - 1));
             //p_hold->push_back({line_number, vec_file[line_number-1]}); //push back a pair {line_number, line_string}
-//            p_hold->push_back({line_number, str_wanted}); //push back a pair {line_number, line_string}
+            p_hold->push_back({line_number, str_wanted}); //push back a pair {line_number, line_string}
         }
 
         //find this find_word occurence in word_count map

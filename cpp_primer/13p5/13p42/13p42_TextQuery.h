@@ -9,7 +9,7 @@
 #include <set>
 #include <memory>
 #include <string>
-//#include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p5/StrVec.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p5/StrVec.h"
 
 class QueryResult;
 
@@ -31,7 +31,7 @@ private:
     std::ifstream& input_file; //note when we pass stream as constructor element, it's a reference, cannot copy
 
     //first, need to store the file into vector line by line, this is done in constructor
-//    StrVec vec_file;
+    StrVec vec_file;
 
     std::set<int> line_record; //hold the line numbers on which each word appears
     std::map<std::string, std::set<int>> word_line_map; //map, word and its corresponding set holding line number on which word appear
