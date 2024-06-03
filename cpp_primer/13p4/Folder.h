@@ -12,7 +12,7 @@ friend class Message;
 friend void swap(Message& lhs, Message& rhs);
 friend void swap(Folder& lhs, Folder& rhs);
 public:
-    explicit Folder(std::string s = ""):name(s){}
+    explicit Folder(const std::string& s = ""):name(s){}
     ////this constructor has default argument, it is also the Folder default constructor
     //implicityli initialize the Messages to empty set
 
@@ -21,6 +21,13 @@ public:
 
     //copy-assignemnt operator
     Folder& operator=(const Folder& rhs);
+    
+    //move constructor
+    //be sure no more user on orig
+    Folder(Folder&& orig);
+
+    //move assignment constructor, be sure no more user on rhs
+    Folder& operator=(Folder&& rhs);
 
     //destructor
     ~Folder();

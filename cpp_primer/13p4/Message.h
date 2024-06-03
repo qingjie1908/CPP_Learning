@@ -29,6 +29,14 @@ public:
     //so all swap only influence rhs_copy.folders, not influence rhs.folders;
     //thier set folders member address is different; not wanted
 
+    //move constructor
+    //insert element to set moght throw exception, like not enough memory left, bad_alloc
+    //so we will not mark them as no except, same for folder class
+    Message(Message&& orig);
+
+    //move operator
+    Message& operator=(Message&& rhs);
+
     //destructor
     ~Message();
 

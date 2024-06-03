@@ -27,6 +27,69 @@ Message::Message(const Message& orig){
     add_to_Folders(orig);
 
 }
+
+//move constructor
+//only be sure the orig we pass will not be used anymore
+Message::Message(Message&& orig){
+    contents = std::move(orig.contents); //here we use std::string move constructor
+    folders = std::move(orig.folders); //here we use std::set move constructor
+
+    //now update orig state, run
+    //after std::move(orig.folders); we cannot use it anymore, 
+    //it's in valid state means &orig is still that orig address, &orig.folder, &orig.contents is still the same member set address and member string address
+    // but we cannot assump its pointed to value still hold the same!!! so orig.folders may not contain what we want, its not guranteed
+    // for(auto f : orig.folders){ //orig.folders can be accessd, but it's not guranteed f is what we want
+    //     f->remMsg(&orig);
+    // }
+    // orig.folders.clear();
+
+    //update 'this' state
+    for(auto f : folders){
+        f->addMsg(this);
+        f->remMsg(&orig); //update orig, we can still use &orig, orig still in valid state
+    }
+
+    //ensure that moved obj is destructible,
+    //after move, orig must no longer point to those moved resources
+    orig.folders.clear(); //we can clear or re-assign value to orig, just cannot dereference its moved member and hope it still hold original pointer value in folders set,
+
+    std::cout << "Message move constructor called" << std::endl;
+}
+
+//move assignment operator
+//be sure that we will not use rhs later in user code!!!
+Message& Message::operator=(Message&& rhs){
+    //consider self assignment
+    if(this != &rhs){ //not the same obj
+        //first update 'this', same effect to cal remove_from_Folders()
+        for(auto f : folders){
+            f->remMsg(this);
+        }
+
+        contents = std::move(rhs.contents); //use std::string move assignment operator
+        folders = std::move(rhs.folders); //use std::set move assignment operator
+
+        for(auto f: folders){
+            f->addMsg(this); //update 'this' to new folders
+            f->remMsg(&rhs); //remove rhs from folders
+        }
+
+        //ensure rhs obj is in destructible state
+        //if a class contain set of pointers pointed dynamic memory, if rhs set not clear, and may still contain the moved resource address(not guranteed)
+        //when destroy, it may free the moved resource, disaster!!!
+        rhs.folders.clear();
+    }
+
+    //else lhs = rhs, do nothing
+
+    std::cout << "Message move assignment operator called" << std::endl;
+    
+    return *this;
+
+    
+}
+
+
 //destructor
 //remove this Message from every folder in folders
 //note, when all this pointer are removed from the set or the set clear()

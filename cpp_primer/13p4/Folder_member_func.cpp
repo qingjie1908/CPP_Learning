@@ -50,6 +50,62 @@ Folder& Folder::operator=(const Folder& rhs){
     return *this;
 }
 
+//move constructor
+//noexcept not declare since set may throw exception
+Folder::Folder(Folder&& orig){
+    name = std::move(orig.name); //use std::string move constructor
+    Messages = std::move(orig.Messages); //use std::set move constructor
+
+    //now update 'this'
+    for(auto m : Messages){
+        m->save(*this);
+
+        //then remove orig from current Message m
+        m->folders.erase(&orig);
+        //we cannot call m->remove, cause it will then call orig.remMsg, then call orig.Messages.erase(m)
+        //we cannot access orig.Messages's resource, since it has been moved, and its value are not guranteed, so we are not suer orig.Messages still hold pointer m (maybe or maybe not)
+    }
+
+    //now clear orig.Messages set so it can be destructible
+    orig.Messages.clear();
+
+    std::cout << "Folder move constructor called" << std::endl;
+    
+}
+
+//move assignment operator
+//noexcept not declare since set may throw exception
+Folder& Folder::operator=(Folder&& rhs){
+    //need to check self assignment
+    if(this != &rhs){ //lhs and rhs are different obj
+        //first update 'this' status before this.Messages be overide by rhs
+        for(auto m : Messages){
+            //m->remove(*this); //wrong, it will change this.Messages, range for should not change Messages size
+            m->folders.erase(this);
+
+        }
+        name = std::move(rhs.name); //call std::string move assignment operator
+        Messages = std::move(rhs.Messages); //call std::set move assignment operator
+
+        //now update rhs and 'this' new Messages
+        for(auto m : Messages){
+            m->folders.erase(&rhs); //can not call m->remove, same reason in move constructor
+            m->save(*this); //update from Message side
+        }
+
+        //now clear rhs set so it can be destructible
+        rhs.Messages.clear();
+    }
+    //else lhs and rhs are same obj, do nothing
+
+    std::cout << "Folder move assignment operator called" << std::endl;
+
+    return *this;
+
+    
+
+}
+
 //destructor
 Folder::~Folder(){
     //if Folder hold {A, B, C}
