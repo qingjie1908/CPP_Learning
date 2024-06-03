@@ -1,4 +1,5 @@
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p5/StrVec.h"
+#include <algorithm> //for_each func
 
 //class static member defination should not be in header, but in implementation cpp file
 std::allocator<std::string> StrVec::alloc;
@@ -39,7 +40,7 @@ void StrVec::free(){
     if (elements) {
         //ex 13.43, use lamda to replace  for loop destroy
         //static variable alloc not need to be in capture list
-        std::for_each(elements, first_free, [](std::string s)->void{std::allocator_traits<decltype(alloc)>::destroy(alloc, &s);});
+        std::for_each(elements, first_free, [](std::string& s)->void{std::allocator_traits<decltype(alloc)>::destroy(alloc, &s);});
         /*
         for(auto p = first_free; p != elements;){
             std::allocator_traits<decltype(alloc)>::destroy(alloc, --p); //prefix, since first_free point to one-past-end, which is unconstructed memory, cannot be destroy
