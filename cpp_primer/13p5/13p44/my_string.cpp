@@ -1,6 +1,7 @@
 //implementation of my_string class
 
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p5/13p44/my_string.h"
+#include <iostream>
 
 std::allocator<char> my_string_c::alloc; //this is defination; defination only happens once, no need add static since it's in decalaration in header file
 //this defination define allocator object named "alloc" that can allocate memory for objects of type char 
@@ -70,6 +71,9 @@ my_string_c::my_string_c(const my_string_c& orig){
     }
     //now curr = mp_end;
     *mp_end = '\0';
+
+    //ex 13.47
+    std::cout << "my_string_c copy constructor called" << std::endl;
 }
 
 //destructor
@@ -112,6 +116,9 @@ my_string_c& my_string_c::operator=(const my_string_c& rhs){
     //update "this" to new memory
     mp_start = new_start;
     mp_end = curr;
+
+    //ex 13.47
+    std::cout << "copy assignment operator called" << std::endl;
 
     return *this;
 }

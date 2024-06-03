@@ -1,5 +1,6 @@
 #include <iostream>
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p5/13p44/my_string.h"
+#include <vector>
 
 int main()
 {
@@ -33,7 +34,7 @@ int main()
     }
     std::cout << std::endl; //w o r l d
 
-    my_string_c m_str4(m_str3);
+    my_string_c m_str4(m_str3); //my_string_c copy constructor called
     char c7 = m_str4.back();
     char c8 = m_str4.front();
     bool b4 = m_str4.empty();
@@ -45,6 +46,7 @@ int main()
     std::cout << std::endl; //m_str4 contents same as m_str3, just memory address different
 
     m_str4 = m_str2; //contents change from "world" to "hello"; mp_start, mp_end holding value also change
+    //copy assignment operator called
     char c9 = m_str4.back();
     char c10 = m_str4.front();
     bool b5 = m_str4.empty();
@@ -85,6 +87,18 @@ int main()
         std::cout << *it << " ";
     }
     std::cout << std::endl; //h e L l o   h a p p y w o r l d
+
+    //ex 13.48
+    std::vector<my_string_c> vec_my_string;
+    vec_my_string.push_back(m_str1); //my_string_c copy constructor called for 1 time, now vec.size() = 1, vec.capacity() = 1
+    vec_my_string.push_back(m_str2); //my_string_c copy constructor called for 2 times, now vec.size() = 2, vec.capacity() = 2; resize, so copy 2 times for both 2 elements
+    vec_my_string.push_back(m_str3); //my_string_c copy constructor called for 3 times, now vec.size() = 3, vec.capacity() = 4; resize, so copy 3 times for all 3 elements
+    vec_my_string.push_back(m_str4); //my_string_c copy constructor called for 1 time, now vec.size() = 4, vec.capacity() = 4; not resize, so only need copy 1 time
+
+    vec_my_string.push_back(m_str1); //my_string_c copy constructor called for 5 times, now vec.size() = 5, vec.capacity() = 8; resize, so copy for all 5 elements
+    vec_my_string.push_back(m_str2); //my_string_c copy constructor called for 1 times, now vec.size() = 6, vec.capacity() = 8; not resize, so only need copy 1 times for new added element
+    vec_my_string.push_back(m_str3); //my_string_c copy constructor called for 1 times, now vec.size() = 7, vec.capacity() = 8; not resize, so only need copy 1 times for new added element
+    vec_my_string.push_back(m_str4); ////my_string_c copy constructor called for 1 times, now vec.size() = 8, vec.capacity() = 8; not resize, so only need copy 1 times for new added element
 
     return 0;
 }
