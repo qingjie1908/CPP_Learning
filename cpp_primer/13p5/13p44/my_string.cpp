@@ -123,6 +123,38 @@ my_string_c& my_string_c::operator=(const my_string_c& rhs){
     return *this;
 }
 
+//move constructor
+my_string_c::my_string_c(my_string_c&& orig){
+    mp_start = orig.mp_start;
+    mp_end = orig.mp_end;
+
+    //now update orig pointer to nullptr
+    //otherwise when orig out of scope in user code, the dynamic memory pointed by 'this' will also be free
+    orig.mp_start = orig.mp_end = nullptr;
+
+    std::cout << "move constructor called" << std::endl;
+}
+
+//move assignment operator
+my_string_c& my_string_c::operator=(my_string_c&& rhs){
+    //check self assignment
+    if(this != &rhs){ //not the same obj
+        //first need to free "this" obj
+        free();
+
+        //now update 'this' to point to rhs hold memory
+        mp_start = rhs.mp_start;
+        mp_end = rhs.mp_end;
+
+        rhs.mp_start = rhs.mp_end = nullptr;
+    }
+
+    //else lhs = rhs. do nothing
+    std::cout << "move assignment operator called" << std::endl;
+
+    return *this;
+}
+
 char my_string_c::back(){
     if(!empty()){
         //char temp = *(--mp_end); //make sure mp_end not change, --end is wrong

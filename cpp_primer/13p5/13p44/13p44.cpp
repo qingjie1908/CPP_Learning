@@ -100,5 +100,14 @@ int main()
     vec_my_string.push_back(m_str3); //my_string_c copy constructor called for 1 times, now vec.size() = 7, vec.capacity() = 8; not resize, so only need copy 1 times for new added element
     vec_my_string.push_back(m_str4); ////my_string_c copy constructor called for 1 times, now vec.size() = 8, vec.capacity() = 8; not resize, so only need copy 1 times for new added element
 
+    //move constructor ex 13.49
+    my_string_c m_str5(std::move(m_str2)); //be sure not use m_str2 anymore
+    //now m_str2.mp_start/end = 0x00000; m_str5 hold memory address of orignal m_str2 pointed to memory 
+    //vec_my_string not affected, since its copy constructor, it hold another memory, just contents same as m_str2
+
+    //move assignment operator
+    m_str5 = std::move(m_str4); //be sure not use m_str4 anymore
+    //now m_str4.mp_start/end is nullptr
+
     return 0;
 }

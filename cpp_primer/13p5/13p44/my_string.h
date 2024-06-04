@@ -14,6 +14,12 @@ public:
     //destructor
     ~my_string_c();
 
+    //move constructor
+    my_string_c(my_string_c&& orig);
+
+    //move assignment operator
+    my_string_c& operator=(my_string_c&& rhs);
+
     bool empty() const {return mp_start == mp_end;} //note: null_ptr = null_ptr; nullptr cannot compare with char*;
     unsigned int size() const {return mp_end - mp_start;} //not include the last '\0'; nullptr - nullptr = 0
     char* begin() const {return mp_start;};
