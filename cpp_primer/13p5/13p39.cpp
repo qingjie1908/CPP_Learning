@@ -29,4 +29,10 @@ int main()
 
     obj3.reserve(2); //not change obj3
 
+    //move constructor
+    StrVec obj4(std::move(obj1)); //now obj1 three member pointers point to nothing (nullptr), obj4.size() = 2, obj1.size() = 0
+
+    //move assignment operator
+    obj4 = std::move(obj3); // now obj3 pointers point to nullptr, obj4.size() = 12, obj3.size() = 0;
+
 }

@@ -26,6 +26,12 @@ public:
     //constructor taks an initialzier_list<std::string>
     StrVec(std::initializer_list<std::string> il);
 
+    //move constructor, take rvalue reference
+    StrVec(StrVec&& orig) noexcept;
+
+    //move assignment operator, take rvalue reference
+    StrVec& operator=(StrVec&& rhs) noexcept;
+
 
     void push_back(const std::string& orig); //copy the element
     //const obj can only call const member func, non-const object can call both const and non-const member func, if overloaded, non-const member func match better

@@ -108,6 +108,37 @@ StrVec& StrVec::operator=(const StrVec& rhs){
     return *this;
 }
 
+//move constructor, member initializers take over the resources in orig
+//parameter is rvalue reference, means that orig can be assigned or destroyed, but cannot be used as other purpose, like use it to assign to other objs
+//noexcept need to be after paramenter list, and need to be both in declartion and defination
+StrVec::StrVec(StrVec&& orig) noexcept : elements(orig.elements), first_free(orig.first_free), cap(orig.cap){
+    //leave orig in a state in which it is safe to run the destructor after we steal its resources
+    orig.elements = orig.first_free = orig.cap = nullptr;
+
+    //if not point to nullptr, its still hold the resource's address
+    //after move, the orig objec still exist, if it's destroyed, then the memory we just moved will be freed
+}
+
+//move assignment operator, take rvalue reference
+StrVec& StrVec::operator=(StrVec&& rhs) noexcept{
+    //also consider self assignment
+    if(this != &rhs){ //note 'this' is a pointer
+        //not equal, then not the same obj, can free this
+        free(); //free lhs orginal memory
+        elements = rhs.elements;
+        first_free = rhs.first_free;
+        cap = rhs.cap;
+
+        //now update rhs so that it can be safe destroyed without affecting this pointed memory
+        //if no update to nullptr, then they point to the same dynamic memory,when rhs out of scope, the memory will be free, danger!!!
+        rhs.elements = rhs.first_free = rhs.cap = nullptr;
+    }
+
+    //else, lhs and rhs are the same obj, do nothing
+    return *this;
+}
+
+
 void StrVec::reallocate(){
     //first allocate new larger space for "this" StrVec obj
     auto newcapacity = size() ? 2 * size() : 1; //consider size() = 0
