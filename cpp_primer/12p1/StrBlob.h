@@ -27,8 +27,15 @@ public:
 
     bool empty() const {return data-> empty();}
 
-    //add or remove elements member func
-    void push_back(const std::string &t) {data->push_back(t);}
+    //add or remove elements member func, 'this' is any kind of StrBlob, 'this' can also be rvalue, both const and non-const
+    //but since it's const we should not use push_back to change 'this', so remove const qualifier
+    //void push_back(const std::string &t) const & {data->push_back(t);}
+    //now it 'this' can only be non-const lvalue
+    void push_back(const std::string &t) & {data->push_back(t);}
+
+    //ex13.55 add rvalue refernce version of push_back, 'this' can only be modifiable rvalues
+    void push_back(const std::string &t) && {data->push_back(t);}
+
     void pop_back();
 
     //element access member func
