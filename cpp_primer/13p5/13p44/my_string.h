@@ -4,6 +4,7 @@
 #include <memory>
 
 class my_string_c{
+friend std::ostream& operator<<(std::ostream& os, const my_string_c& obj);
 public:
     my_string_c(); //default constructor
     my_string_c(const char* cp); //string literal is transferred to const char* 

@@ -242,3 +242,13 @@ void my_string_c::push_back(const my_string_c& add_obj){
     mp_start = new_start;
     mp_end = curr_new;
 }
+
+//output operator
+std::ostream& operator<<(std::ostream& os, const my_string_c& obj){
+    char* curr = obj.begin();
+    while (curr != obj.end()){
+        os << *curr;
+        ++curr;
+    }
+    return os;
+}
