@@ -1,12 +1,15 @@
 #ifndef SALES_DATA_H
 #define SALES_DATA_H
 #include <string>
+#include <iostream>
 // pwd, /Users/qingjie/github/CPP_Learning/cpp_primer/2p6/Sales_data.h
 class Sales_data {
 // add friend declaration of nonmember function add() print() read(), otherwise these non-member func cannot use Sales_data private members
 friend Sales_data add(const Sales_data&, const Sales_data&);
 friend std::ostream &print(std::ostream&, const Sales_data&);
 friend std::istream &read(std::istream&, Sales_data&);
+friend std::ostream& operator<<(std::ostream& os, const Sales_data& obj);
+friend std::istream& operator>>(std::istream& is, Sales_data& obj);
 public: // usually constructors and some member functions are public
     // add constructors
 
@@ -72,6 +75,11 @@ public: // usually constructors and some member functions are public
     // see https://stackoverflow.com/questions/3141087/what-is-meant-with-const-at-end-of-function-declaration
     std::string isbn() const {return bookNo;}
     Sales_data& combine(const Sales_data&);
+
+    //overloaded operator
+    //compound-assignmnet
+    Sales_data& operator+=(const Sales_data& rhs);
+
 public:
     double avg_price() const;
     // data members are unchanged as follows
@@ -125,3 +133,30 @@ Sales_data add(const Sales_data &lhs, const Sales_data &rhs)
     return sum;
 }
 #endif
+
+//overload operator
+//input, non-member func, if member func, can only have 1 parameter
+std::istream& operator>>(std::istream& is, Sales_data& obj){
+    double price;
+    is >> obj.bookNo >> obj.units_sold >> price;
+    if(is){ //check if is is in valid state
+        //successful,
+        obj.revenue = obj.units_sold * price;
+    } else{ //in vaild, for example an string is is give to obj.units_sold, type mismatch, exception occur
+        obj = Sales_data(); //reset obj to default state, copy assignment
+    }
+
+    return is;
+}
+
+//output
+std::ostream& operator<<(std::ostream& os, const Sales_data& obj){
+    os << obj.isbn() << " " << obj.units_sold << " "
+        << obj.revenue << " " << obj.avg_price();
+    return os;
+}
+
+//addition
+Sales_data operator+(Sales_data obj1, Sales_data obj2);
+
+
