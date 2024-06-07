@@ -63,3 +63,24 @@ TreeNode::~TreeNode(){
     free();
     std::cout << "TreeNode destructor" << std::endl;
 }
+
+//output operator
+std::ostream& operator<<(std::ostream& os, const TreeNode& obj){
+    os << obj.value << " ";
+    if(obj.left != nullptr){
+        os << "has left: " << (obj.left)->value << "; "; //here << is std <<
+        os << *(obj.left); //here << is own defined operator
+    } else {
+        os << "has no left node; ";
+    }
+
+    os << obj.value << " ";
+    if(obj.right != nullptr){
+        os << "has right: " << (obj.right)->value << "; ";
+        os << *(obj.right);
+    } else {
+        os << "has no right node; ";
+    }
+
+    return os;
+}

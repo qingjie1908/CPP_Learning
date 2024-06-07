@@ -5,6 +5,7 @@ class TreeNode; //forwad class declaration, incomplete type, cannot derefence or
 
 class BinStrTree{
 friend class TreeNode;
+friend std::ostream& operator<<(std::ostream& os, const BinStrTree& obj);
 public:
     BinStrTree():tree_name(""), root(nullptr){} //default constructor
     BinStrTree(const std::string& pname = "", TreeNode* proot = nullptr); //first paramenter has default argument, the its following all parameters need defaulg argument
@@ -20,5 +21,8 @@ private:
     TreeNode *root;
     void free();
 };
+
+//output operator
+std::ostream& operator<<(std::ostream& os, const BinStrTree& obj);
 
 #endif

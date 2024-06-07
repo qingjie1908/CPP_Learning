@@ -40,4 +40,15 @@ int main()
     // TreeNode destructor
     // 7
     // TreeNode copy construct
+
+    //ex 14.8
+    std::cout << n7 << std::endl;
+    //output
+    /*
+    n7 has left: n5; n5 has left: n1; n1 has no left node; n1 has no right node; n5 has right: n2; n2 has no left node; n2 has no right node; n7 has right: n6; n6 has left: n3; n3 has no left node; n3 has no right node; n6 has right: n4; n4 has no left node; n4 has no right node; 
+    */
+    std::cout << BT2 << std::endl;
+    /*
+    BT1 has root: n7; n7 has left: n5; n5 has left: n1; n1 has no left node; n1 has no right node; n5 has right: n2; n2 has no left node; n2 has no right node; n7 has right: n6; n6 has left: n3; n3 has no left node; n3 has no right node; n6 has right: n4; n4 has no left node; n4 has no right node; 
+    */
 }

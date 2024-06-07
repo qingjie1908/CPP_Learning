@@ -50,3 +50,15 @@ BinStrTree::~BinStrTree(){
     free();
     std::cout << "BinStrTree destructor" << std::endl;
 }
+
+//output operator
+std::ostream& operator<<(std::ostream& os, const BinStrTree& obj){
+    os << obj.tree_name << " "; //<< is std <<
+    if(obj.root != nullptr){
+        os << "has root: " << obj.root->value << "; ";
+        os << *(obj.root); // << is TreeNode version <<
+    } else {
+        os << "has no node; ";
+    }
+    return os;
+}
