@@ -144,7 +144,11 @@ std::istream& operator>>(std::istream& is, Sales_data& obj){
         obj.revenue = obj.units_sold * price;
     } else{ //in vaild, for example an string is is give to obj.units_sold, type mismatch, exception occur
         obj = Sales_data(); //reset obj to default state, copy assignment
+        is.setstate(std::ios_base::failbit);
+        std::cout << "Input for Sales_data item failed. Reset Sales_data item to empty" << std::endl;
     }
+    //if not check is, when is fail, for example input "aaa, 1, aa", obj.bookNo = aaa, units_sold = 1, but price will be set to 0
+    //and is.rdstate() will change from 0 to 4 (cause is::failbit is 4), is.fail() is true, cannot use is again
 
     return is;
 }
