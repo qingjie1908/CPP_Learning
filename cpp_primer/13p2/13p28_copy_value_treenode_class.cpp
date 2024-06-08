@@ -76,14 +76,14 @@ TreeNode& TreeNode::operator=(const TreeNode& rhs){
     count = rhs.count;
 
     TreeNode* left_tmp = new TreeNode(*rhs.left);
-    //left_temp is not built in pointer, but point to dynamic memory
+    //left_temp is built in pointer, point to dynamic memory
     //when = operator func ends, left_temp this pointer destroyed
     //but that dynamic memory still exists, and we allocate it to this.left to manage
     //so that dynamic memory free responsibility is in this class destructor
     if(left != nullptr){
         delete left;
         left = left_tmp;
-    } else { //is null ptr, cannot delete
+    } else { //is null ptr, can also delete nullptr
         left = left_tmp;
     }
 
