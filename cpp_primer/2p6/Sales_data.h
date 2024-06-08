@@ -10,6 +10,7 @@ friend std::ostream &print(std::ostream&, const Sales_data&);
 friend std::istream &read(std::istream&, Sales_data&);
 friend std::ostream& operator<<(std::ostream& os, const Sales_data& obj);
 friend std::istream& operator>>(std::istream& is, Sales_data& obj);
+friend Sales_data operator+(const Sales_data& lhs, const Sales_data& rhs);
 public: // usually constructors and some member functions are public
     // add constructors
 
@@ -162,5 +163,23 @@ std::ostream& operator<<(std::ostream& os, const Sales_data& obj){
 
 //addition
 Sales_data operator+(Sales_data obj1, Sales_data obj2);
+
+//+= operator
+Sales_data& Sales_data::operator+=(const Sales_data& rhs){
+    if(bookNo != rhs.bookNo){
+        std::cout << "cannot process books with different bookNo." << std::endl;
+        return *this; //did not change 'this'
+    }
+    units_sold += rhs.units_sold; //use std::+=
+    revenue += rhs.revenue; //use std::+=
+    return *this;
+}
+
+//ex 14.13 + operator, should return a new obj, non-member func
+Sales_data operator+(const Sales_data& lhs, const Sales_data& rhs){
+    Sales_data sum = lhs; //copy construct
+    sum += rhs; //use Sales_data::operator+=
+    return sum;
+}
 
 
