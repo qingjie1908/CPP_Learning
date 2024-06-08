@@ -292,3 +292,11 @@ StrVec::StrVec(std::initializer_list<std::string> il){
     elements = new_start;
     first_free = cap = new_begin; //off_the_end
 }
+
+bool operator==(const StrVec& lhs, const StrVec& rhs){
+    return lhs.cap == rhs.cap && lhs.elements == rhs.elements && lhs.first_free == rhs.first_free;
+}
+
+bool operator!=(const StrVec&lhs, const StrVec& rhs){
+    return !(lhs == rhs);
+}

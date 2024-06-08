@@ -17,6 +17,8 @@ elements       first_free               cap
 
 
 class StrVec{
+friend bool operator==(const StrVec& lhs, const StrVec& rhs);
+friend bool operator!=(const StrVec&lhs, const StrVec& rhs);
 public:
     StrVec():elements(nullptr), first_free(nullptr), cap(nullptr){}
     StrVec(const StrVec& orig); //copy cosntructor
@@ -75,5 +77,8 @@ std::allocator<std::string> StrVec::alloc;
 //never write defination in header file!!!
 
 */
+
+bool operator==(const StrVec& lhs, const StrVec& rhs);
+bool operator!=(const StrVec&lhs, const StrVec& rhs);
 
 #endif
