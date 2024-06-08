@@ -252,3 +252,10 @@ std::ostream& operator<<(std::ostream& os, const my_string_c& obj){
     }
     return os;
 }
+
+bool operator==(const my_string_c& lhs, const my_string_c& rhs){
+    return lhs.mp_start == rhs.mp_start && lhs.mp_end == rhs.mp_end;
+}
+bool operator!=(const my_string_c& lhs, const my_string_c& rhs){
+    return !(lhs == rhs);
+}

@@ -5,6 +5,8 @@
 
 class my_string_c{
 friend std::ostream& operator<<(std::ostream& os, const my_string_c& obj);
+friend bool operator==(const my_string_c& lhs, const my_string_c& rhs);
+friend bool operator!=(const my_string_c& lhs, const my_string_c& rhs);
 public:
     my_string_c(); //default constructor
     my_string_c(const char* cp); //string literal is transferred to const char* 
@@ -46,5 +48,8 @@ private:
 
 
 };
+
+bool operator==(const my_string_c& lhs, const my_string_c& rhs);
+bool operator!=(const my_string_c& lhs, const my_string_c& rhs);
 #endif
 
