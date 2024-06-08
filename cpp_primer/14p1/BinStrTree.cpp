@@ -62,3 +62,14 @@ std::ostream& operator<<(std::ostream& os, const BinStrTree& obj){
     }
     return os;
 }
+
+//input operator
+std::istream& operator>>(std::istream& is, BinStrTree& obj){
+    is >> obj.tree_name;
+    //we want tree_name start with letter
+    if(obj.tree_name.empty() || !isalpha(obj.tree_name[0])){ //not the correct format
+        is.setstate(std::ios_base::failbit);
+        std::cout << "Tree_name should start with a letter, in valid input." << std::endl;
+    }
+    return is;
+}

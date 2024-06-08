@@ -5,8 +5,10 @@
 
 class TreeNode {
 friend class BinStrTree;
-friend std::ostream& operator<<(std::ostream&, const TreeNode& obj);
-friend std::ostream& operator<<(std::ostream& os, const BinStrTree& obj);
+friend std::ostream& operator<<(std::ostream& os, const TreeNode& obj); //TreeNode output operator
+friend std::istream& operator>>(std::istream& is, TreeNode& obj); //TreeNode input operator
+friend std::ostream& operator<<(std::ostream& os, const BinStrTree& obj); //BinStrTree output operator
+friend std::istream& operator>>(std::istream& is, BinStrTree& obj); //BinStrTree input operator
 public:
     TreeNode():value(std::string()), count(0), left(nullptr), right(nullptr){}
     TreeNode(const std::string& name = "", int pcount = 0, TreeNode* left_node = nullptr, TreeNode* right_node = nullptr);
@@ -24,4 +26,6 @@ private:
 
 //output operator
 std::ostream& operator<<(std::ostream& os, const TreeNode& obj);
+//input operator
+std::istream& operator>>(std::istream& is, TreeNode& obj);
 #endif
