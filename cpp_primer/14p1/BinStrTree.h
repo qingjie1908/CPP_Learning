@@ -7,6 +7,8 @@ class BinStrTree{
 friend class TreeNode;
 friend std::ostream& operator<<(std::ostream& os, const BinStrTree& obj);
 friend std::istream& operator>>(std::istream& is, BinStrTree& obj);
+friend bool operator==(const BinStrTree& lhs, const BinStrTree& rhs);
+friend bool operator!=(const BinStrTree& lhs, const BinStrTree& rhs);
 public:
     BinStrTree():tree_name(""), root(nullptr){} //default constructor
     BinStrTree(const std::string& pname = "", TreeNode* proot = nullptr); //first paramenter has default argument, the its following all parameters need defaulg argument
@@ -28,5 +30,8 @@ std::ostream& operator<<(std::ostream& os, const BinStrTree& obj);
 
 //input operator, obj cannot be const since we need to write in it
 std::istream& operator>>(std::istream& is, BinStrTree& obj);
+
+bool operator==(const BinStrTree& lhs, const BinStrTree& rhs);
+bool operator!=(const BinStrTree& lhs, const BinStrTree& rhs);
 
 #endif

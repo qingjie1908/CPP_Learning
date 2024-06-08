@@ -10,7 +10,6 @@ TreeNode::TreeNode(const std::string& name, int pcount, TreeNode* left_node, Tre
     //left/right_node has default argument nullptr
     if (left_node != nullptr) {left = new TreeNode(*left_node);} else left = nullptr;
     if (right_node != nullptr) {right = new TreeNode(*right_node);} else right = nullptr;
-    count = left->count + right->count + 1 + 1;
 }
 TreeNode::TreeNode(const TreeNode& orig){
     value = orig.value; //value copy, std::string copy construct
@@ -97,4 +96,25 @@ std::istream& operator>>(std::istream& is, TreeNode& obj){
         obj.value = "";
     }
     return is; //now in user code, next while(is >> obj) will not be executed
+}
+
+bool operator==(const TreeNode& lhs, const TreeNode& rhs){
+    bool left_bool, right_bool;
+    if(lhs.left != nullptr && rhs.left != nullptr){
+        left_bool = (*(lhs.left) == *(rhs.left));
+    } else if (lhs.left == nullptr && rhs.left == nullptr) {
+        left_bool = true;
+    } else left_bool = false;
+
+    if(lhs.right != nullptr && rhs.right != nullptr){
+        right_bool = (*(lhs.right) == *(rhs.right));
+    } else if (lhs.right == nullptr && rhs.right == nullptr) {
+        right_bool = true;
+    } else right_bool = false;
+
+    return (lhs.value == rhs.value) && (lhs.count == rhs.count) && left_bool && right_bool;
+
+}
+bool operator!=(const TreeNode& lhs, const TreeNode& rhs){
+    return !(lhs == rhs);
 }

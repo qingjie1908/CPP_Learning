@@ -51,4 +51,7 @@ int main()
     /*
     BT1 has root: n7; n7 has left: n5; n5 has left: n1; n1 has no left node; n1 has no right node; n5 has right: n2; n2 has no left node; n2 has no right node; n7 has right: n6; n6 has left: n3; n3 has no left node; n3 has no right node; n6 has right: n4; n4 has no left node; n4 has no right node; 
     */
+
+    if(n8 == n6) { std::cout << "n8 = n6" << std::endl;} //true
+    if(BT1 == BT2) {std::cout << "BT1 = BT2" << std::endl;} //true
 }

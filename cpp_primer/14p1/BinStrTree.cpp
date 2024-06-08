@@ -73,3 +73,17 @@ std::istream& operator>>(std::istream& is, BinStrTree& obj){
     }
     return is;
 }
+
+bool operator==(const BinStrTree& lhs, const BinStrTree& rhs){
+    bool root_bool;
+    if(lhs.root != nullptr && rhs.root != nullptr){
+        root_bool = (*(lhs.root) == *(rhs.root));
+    } else if (lhs.root == nullptr && rhs.root == nullptr){
+        root_bool = true;
+    } else root_bool = false;
+
+    return (lhs.tree_name == rhs.tree_name) && root_bool;
+}
+bool operator!=(const BinStrTree& lhs, const BinStrTree& rhs){
+    return !(lhs == rhs);
+}
