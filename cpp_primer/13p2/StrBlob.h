@@ -11,6 +11,7 @@ class StrBlob{
 friend class StrBlobPtr; // so that StrBlobPtr can access StrBlob's private member
 friend bool operator==(const StrBlob& lhs, const StrBlob& rhs);
 friend bool operator!=(const StrBlob& lhs, const StrBlob& rhs);
+friend bool operator<(const StrBlob& lhs, const StrBlob& rhs);
 public:
     typedef std::vector<std::string>::size_type size_type;
 
@@ -69,5 +70,6 @@ private:
 //operator ==
 bool operator==(const StrBlob& lhs, const StrBlob& rhs);
 bool operator!=(const StrBlob& lhs, const StrBlob& rhs);
+bool operator<(const StrBlob& lhs, const StrBlob& rhs);
 
 #endif

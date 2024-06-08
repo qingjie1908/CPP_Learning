@@ -48,3 +48,10 @@ bool operator==(const StrBlobPtr& lhs, const StrBlobPtr& rhs){
 bool operator!=(const StrBlobPtr& lhs, const StrBlobPtr& rhs){
     return !(lhs == rhs);
 }
+
+//should not define < operator, cause if lhs and rhs are different address
+//but they pointed to vector has same contents
+//if we compare the vector contents, then both lhs < rhs or rhs < lhs return false
+//but lhs == rhs  return false, cause their holding memory address is different
+//so conflict with rule: if lhs != rhs, then one must be < than another
+//so should not define <

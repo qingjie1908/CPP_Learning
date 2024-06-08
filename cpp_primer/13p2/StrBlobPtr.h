@@ -9,6 +9,7 @@ class StrBlobPtr{
 friend class StrBlob;
 friend bool operator==(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
 friend bool operator!=(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
+friend bool operator<(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
 public:
     //first constructor
     StrBlobPtr(): curr(0) {} //implicty initialize wptr to a nullptr
@@ -40,5 +41,6 @@ private:
 
 bool operator==(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
 bool operator!=(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
+bool operator<(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
 
 #endif

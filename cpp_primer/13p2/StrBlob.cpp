@@ -105,3 +105,7 @@ bool operator==(const StrBlob& lhs, const StrBlob& rhs){
 bool operator!=(const StrBlob& lhs, const StrBlob& rhs){
     return !(lhs == rhs); //use class == operator
 }
+
+bool operator<(const StrBlob& lhs, const StrBlob& rhs){
+    return (*(lhs.data) < *(rhs.data)); //use std::vector < operator
+}
