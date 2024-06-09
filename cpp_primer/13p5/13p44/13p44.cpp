@@ -109,5 +109,35 @@ int main()
     m_str5 = std::move(m_str4); //be sure not use m_str4 anymore
     //now m_str4.mp_start/end is nullptr
 
+    my_string_c m_str6; //size() = 0; empty() = true; 
+    my_string_c m_str7;
+    my_string_c m_str8 = "hello";
+    my_string_c m_str9 = "hell";
+    my_string_c m_str10 = "helloo";
+    my_string_c m_str11 = "iallo";
+    my_string_c m_str12 = "gfllo";
+    //output for relational operator
+    /*
+    m_str6 == m_str7
+    true
+    m_str6 != m_str7
+    false
+    m_str8 < m_str9
+    false
+    m_str9 < m_str8
+    true
+    m_str8 < m_str10
+    true
+    m_str10 < m_str8
+    false
+    m_str8 < m_str11
+    true
+    m_str11 < m_str8
+    false
+    m_str8 < m_str12
+    false
+    m_str12 < m_str8
+    true  
+    */
     return 0;
 }

@@ -254,8 +254,46 @@ std::ostream& operator<<(std::ostream& os, const my_string_c& obj){
 }
 
 bool operator==(const my_string_c& lhs, const my_string_c& rhs){
-    return lhs.mp_start == rhs.mp_start && lhs.mp_end == rhs.mp_end;
+    if(lhs.size() != rhs.size()){
+        return false;
+    }
+    //has same size, compare each element
+    char* curr_left = lhs.begin();
+    char* curr_right = rhs.begin();
+    while(curr_left != lhs.end()){
+        if(*curr_left != *curr_right){ //use std::char !=
+            return false;
+        }
+        // left char == right char, continue
+        ++curr_left;
+        ++curr_right;
+    }
+    //compare each char, no return false, all equal
+    return true;
 }
 bool operator!=(const my_string_c& lhs, const my_string_c& rhs){
     return !(lhs == rhs);
+}
+bool operator<(const my_string_c& lhs, const my_string_c& rhs){
+    if(lhs.size() < rhs.size()){
+        return true;
+    }
+    if(lhs.size() > rhs.size()){
+        return false;
+    }
+    //size equal, compare each char
+    char* curr_left = lhs.begin();
+    char* curr_right = rhs.begin();
+    while(curr_left != lhs.end()){
+        if(*curr_left < *curr_right){ //first encounter left char < right char, not care remaining part
+            return true;
+        }
+        if(*curr_right < *curr_left){ //first encounter left char > right char, not care remaining part
+            return false;
+        }
+        ++curr_left;
+        ++curr_right;
+    }
+    //while loop finished, no return, then all char equal
+    return false;
 }

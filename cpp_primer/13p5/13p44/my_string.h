@@ -7,6 +7,7 @@ class my_string_c{
 friend std::ostream& operator<<(std::ostream& os, const my_string_c& obj);
 friend bool operator==(const my_string_c& lhs, const my_string_c& rhs);
 friend bool operator!=(const my_string_c& lhs, const my_string_c& rhs);
+friend bool operator<(const my_string_c& lhs, const my_string_c& rhs);
 public:
     my_string_c(); //default constructor
     my_string_c(const char* cp); //string literal is transferred to const char* 
@@ -39,7 +40,7 @@ public:
 
 private:
     char* mp_start; //pointer to point to first element in a char[]
-    //'\0; is null character, it's not nullptr; it's also an object
+    //'\0; is null character, it's not nullptr; it's also an object with type char
     char* mp_end; //pointer to off the end in char[], which point to '\0'
 
     static std::allocator<char> alloc; //this is decalartion only, implementation in another implementation cpp file
@@ -51,5 +52,6 @@ private:
 
 bool operator==(const my_string_c& lhs, const my_string_c& rhs);
 bool operator!=(const my_string_c& lhs, const my_string_c& rhs);
+bool operator<(const my_string_c& lhs, const my_string_c& rhs);
 #endif
 
