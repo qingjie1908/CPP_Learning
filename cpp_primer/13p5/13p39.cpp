@@ -61,5 +61,7 @@ int main()
     true
     */
 
+    std::cout << obj5[0] << std::endl;
+
     return 0;
 }

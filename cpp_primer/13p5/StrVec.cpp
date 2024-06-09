@@ -1,5 +1,6 @@
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p5/StrVec.h"
 #include <algorithm> //for_each func
+#include <iostream>
 
 //class static member defination should not be in header, but in implementation cpp file
 std::allocator<std::string> StrVec::alloc;
@@ -346,4 +347,11 @@ StrVec& StrVec::operator=(std::initializer_list<std::string> il){
     elements = pair_new.first;
     first_free = cap = pair_new.second;
     return *this;
+}
+
+std::string& StrVec::operator[](std::size_t n){
+    return elements[n]; //elements[n] is equal to *(element+n)
+}
+const std::string& StrVec::operator[](std::size_t n) const{
+    return elements[n];
 }

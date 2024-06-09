@@ -36,6 +36,9 @@ public:
     StrVec& operator=(StrVec&& rhs) noexcept;
     //assignment operator take initializer_list
     StrVec& operator=(std::initializer_list<std::string> il);
+    //subscript operator, subscript return string element, not StrVec
+    std::string& operator[](std::size_t n);
+    const std::string& operator[](std::size_t n) const;
 
 
     void push_back(const std::string& orig); //copy the element
