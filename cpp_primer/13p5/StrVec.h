@@ -34,6 +34,8 @@ public:
 
     //move assignment operator, take rvalue reference
     StrVec& operator=(StrVec&& rhs) noexcept;
+    //assignment operator take initializer_list
+    StrVec& operator=(std::initializer_list<std::string> il);
 
 
     void push_back(const std::string& orig); //copy the element

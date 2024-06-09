@@ -337,3 +337,13 @@ bool operator<(const StrVec&lhs, const StrVec& rhs){
     //now finish while loop, no return false, means all elements are the same, size are the same
     return false;
 }
+
+StrVec& StrVec::operator=(std::initializer_list<std::string> il){
+    auto pair_new = alloc_n_copy(il.begin(), il.end());
+    //free old this
+    free();
+    //update 'this'
+    elements = pair_new.first;
+    first_free = cap = pair_new.second;
+    return *this;
+}
