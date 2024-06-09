@@ -20,6 +20,7 @@ public:
     TreeNode(TreeNode&& orig); //move constructor
     TreeNode& operator=(const TreeNode& rhs); //copy assignment
     TreeNode& operator=(TreeNode&& rhs); //move assignment
+    TreeNode& operator=(const std::string ps); //assignment operator just change string value
     ~TreeNode();
 
     std::string value;

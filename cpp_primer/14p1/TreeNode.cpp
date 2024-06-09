@@ -207,6 +207,9 @@ bool operator<(const TreeNode& lhs, const TreeNode& rhs){
     }
 
     //both left and right of lhs and rhs are not equal
-    return left_bool && right_bool;
-    
+    return left_bool && right_bool;  
+}
+TreeNode& TreeNode::operator=(const std::string ps){
+    value = ps;
+    return *this;
 }
