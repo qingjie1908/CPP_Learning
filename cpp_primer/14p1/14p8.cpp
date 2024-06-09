@@ -56,17 +56,17 @@ int main()
     if(BT1 == BT2) {std::cout << "BT1 = BT2" << std::endl;} //true
 
     //ex14.19 < opeartor for treenode and BinStrTree
-    n1 < n2; //true, compare name "n1" < "n2"
-    n4 < n3; //false, comapre name "n4" < "n3"
-    n5 < n6; //true, compare "n5" < "n6"
+    //n1 < n2; //true, compare name "n1" < "n2"
+    //n4 < n3; //false, comapre name "n4" < "n3"
+    //n5 < n6; //true, compare "n5" < "n6"
 
     TreeNode A("A"), B("B"), C("C"), D("D");
     TreeNode N1("N1", &A, nullptr), N2("N1", nullptr, &A);
-    N1 < N2; //false, N1.left not null, N2 left null
+    //N1 < N2; //false, N1.left not null, N2 left null
     TreeNode N3("N3", &N1, nullptr), N4("N3", &N1, &A);
-    N3 < N4; //true, subnodes count N3 < N4
+    //N3 < N4; //true, subnodes count N3 < N4
     TreeNode N5("N5", &N1, &A), N6("N5", &N1, &B);
-    N5 < N6; //true, subnode right A <  right B
+    //N5 < N6; //true, subnode right A <  right B
     TreeNode N7("N7", &A, &B), N8("N7", &B, &B);
-    N7 < N8; // true, subnode left A < left B
+    //N7 < N8; // true, subnode left A < left B
 }
