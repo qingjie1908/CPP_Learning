@@ -35,4 +35,31 @@ int main()
     //move assignment operator
     obj4 = std::move(obj3); // now obj3 pointers point to nullptr, obj4.size() = 12, obj3.size() = 0;
 
+    StrVec obj5({"aa", "bb", "cc"});
+    StrVec obj6({"aa", "bb", "cc"});
+    StrVec obj7({"aa", "bb"});
+    StrVec obj8({"aa", "bb", "cc", "dd"});
+    StrVec obj9({"aa", "cc", "aa"});
+    StrVec obj10({"aa", "aa", "dd"});
+    //output in debug console
+    /*
+    obj5 == obj6
+    true
+    obj5 < obj7
+    false
+    obj7 < obj5
+    true
+    obj5 < obj8
+    true
+    obj5 < obj9
+    true
+    obj9 < obj5
+    false
+    obj5 < obj10
+    false
+    obj10 < obj5
+    true
+    */
+
+    return 0;
 }

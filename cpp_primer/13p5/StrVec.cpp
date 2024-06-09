@@ -294,9 +294,46 @@ StrVec::StrVec(std::initializer_list<std::string> il){
 }
 
 bool operator==(const StrVec& lhs, const StrVec& rhs){
-    return lhs.cap == rhs.cap && lhs.elements == rhs.elements && lhs.first_free == rhs.first_free;
+    if(lhs.size() != rhs.size()) { return false;}
+    //if has same size, compare each element (string) in it
+    auto curr_left = lhs.begin();
+    auto curr_right = rhs.begin();
+    while(curr_left != lhs.end()){
+        if(*curr_left != *curr_right){ //encounter first lhs string != rhs string
+            return false;
+        }
+        //else string equal compare next two string
+        ++curr_left;
+        ++curr_right;
+    }
+    //comapre each element and no return false (not find different string)
+    return true;
 }
 
 bool operator!=(const StrVec&lhs, const StrVec& rhs){
     return !(lhs == rhs);
+}
+
+bool operator<(const StrVec&lhs, const StrVec& rhs){
+    bool result = true;
+
+    if(lhs.size() < rhs.size()) {return true;}
+    if(lhs.size() > rhs.size()) {return false;}
+    //if lhs.size() == rhs.size(), do follow
+
+    auto curr_left = lhs.begin();
+    auto curr_right = rhs.begin();
+    while(curr_left != lhs.end()){
+        if(*curr_left > *curr_right){ //first encounter case that left.string > right.string, not care about remaining elements
+            return false;
+        }
+        if(*curr_left < *curr_right){ //first encounter case that left.string < right.string not care aboot remaining elements
+            return true;
+        }
+        //else until now left.string is = right.string
+        ++curr_left;
+        ++curr_right;
+    }
+    //now finish while loop, no return false, means all elements are the same, size are the same
+    return false;
 }
