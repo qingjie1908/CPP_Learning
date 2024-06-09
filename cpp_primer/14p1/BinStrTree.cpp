@@ -87,3 +87,6 @@ bool operator==(const BinStrTree& lhs, const BinStrTree& rhs){
 bool operator!=(const BinStrTree& lhs, const BinStrTree& rhs){
     return !(lhs == rhs);
 }
+bool operator<(const BinStrTree& lhs, const BinStrTree& rhs){
+    return (*(lhs.root) < *(rhs.root)); //delegate to TreeNode class < operator
+}

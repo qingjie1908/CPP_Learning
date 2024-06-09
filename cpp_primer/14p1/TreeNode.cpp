@@ -4,12 +4,12 @@
 #include <iostream>
 #include <memory>
 
-TreeNode::TreeNode(const std::string& name, int pcount, TreeNode* left_node, TreeNode* right_node){
+TreeNode::TreeNode(const std::string& name, TreeNode* left_node, TreeNode* right_node){
     value = name;
-    count = pcount;
+    count = 0;
     //left/right_node has default argument nullptr
-    if (left_node != nullptr) {left = new TreeNode(*left_node);} else left = nullptr;
-    if (right_node != nullptr) {right = new TreeNode(*right_node);} else right = nullptr;
+    if (left_node != nullptr) {left = new TreeNode(*left_node); count += left_node->count; ++count;} else left = nullptr;
+    if (right_node != nullptr) {right = new TreeNode(*right_node); count += right_node->count; ++count;} else right = nullptr;
 }
 TreeNode::TreeNode(const TreeNode& orig){
     value = orig.value; //value copy, std::string copy construct
@@ -66,6 +66,7 @@ TreeNode::~TreeNode(){
 
 //output operator
 std::ostream& operator<<(std::ostream& os, const TreeNode& obj){
+    //os << obj.value << " has total " << obj.count << " sub nodes. " << std::endl;
     os << obj.value << " ";
     if(obj.left != nullptr){
         os << "has left: " << (obj.left)->value << "; "; //here << is std <<
@@ -117,4 +118,55 @@ bool operator==(const TreeNode& lhs, const TreeNode& rhs){
 }
 bool operator!=(const TreeNode& lhs, const TreeNode& rhs){
     return !(lhs == rhs);
+}
+bool operator<(const TreeNode& lhs, const TreeNode& rhs){
+    if(lhs.count < rhs.count){
+        return true;
+    }
+    if(lhs.count > rhs.count){
+        return false;
+    }
+    //has same number of subnodes, compare value
+    if(lhs.value < rhs.value){
+        return true;
+    }
+    if(lhs.value > rhs.value){
+        return false;
+    }
+    //has same number of subnodes, and same value
+    //compare subnodes
+    bool left_bool, right_bool, left_equal, right_equal;
+    if(lhs.left != nullptr && rhs.left != nullptr){
+        left_bool = *(lhs.left) < *(rhs.left);
+        left_equal = *(lhs.left) == *(rhs.left);
+    } else if (lhs.left == nullptr && rhs.left == nullptr) {
+        left_bool = false;
+        left_equal = true;
+    } else if (lhs.left != nullptr && rhs.left == nullptr) {
+        left_bool = false;
+        left_equal = false;
+    } else {left_bool = true; left_equal = false;} //lhs.left is null, rhs.left is not null
+
+    if(lhs.right != nullptr && rhs.right != nullptr){
+        right_bool = *(lhs.right) < *(rhs.right);
+        right_equal = *(lhs.right) == *(rhs.right);
+    } else if (lhs.right == nullptr && rhs.right == nullptr) {
+        right_bool = false;
+        right_equal = true;
+    } else if (lhs.right != nullptr && rhs.right == nullptr) {
+        right_bool = false;
+        right_equal = false;
+    } else {right_bool = true; right_equal = false;} ////lhs.right is null, rhs.right is not null
+
+    //note there is case that lhs.left == rhs.left, (left_bool is false), lhs.right < rhs.right (right_bool is true), also should return true
+    if (left_equal){
+        return right_bool;
+    }
+    if (right_equal){ //right_bool is false, but maybe left_bool is true
+        return left_bool;
+    }
+
+    //both left and right of lhs and rhs are not equal
+    return left_bool && right_bool;
+    
 }

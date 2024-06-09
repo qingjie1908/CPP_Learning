@@ -3,10 +3,10 @@
 
 int main()
 {
-    TreeNode n1("n1", 1), n2("n2", 2), n3("n3", 3), n4("n4", 4);
-    TreeNode n5("n5", 5, &n1, &n2); //just copy contents of n1, n2, not taking exatc n1, n2 to be n5 subnodes, so n5.left != &n1, new address // two copy construct
-    TreeNode n6("n6", 6, &n3, &n4); //two copy construct
-    TreeNode n7("n7", 7, &n5, &n6); //six copy construct, n5 has two subnodes, n6 has two subnodes, plus n5, n6 totoal sixe
+    TreeNode n1("n1"), n2("n2"), n3("n3"), n4("n4");
+    TreeNode n5("n5", &n1, &n2); //just copy contents of n1, n2, not taking exatc n1, n2 to be n5 subnodes, so n5.left != &n1, new address // two copy construct; and count = 2, has two not null subnodes
+    TreeNode n6("n6", &n3, &n4); //two copy construct
+    TreeNode n7("n7", &n5, &n6); //six copy construct, n5 has two subnodes, n6 has two subnodes, plus n5, n6 total six, count = 6, has 6 subnodes
 
     TreeNode n8(n7); // 7 copy construct, n8 has seven subnodes
 
@@ -54,4 +54,19 @@ int main()
 
     if(n8 == n6) { std::cout << "n8 = n6" << std::endl;} //true
     if(BT1 == BT2) {std::cout << "BT1 = BT2" << std::endl;} //true
+
+    //ex14.19 < opeartor for treenode and BinStrTree
+    n1 < n2; //true, compare name "n1" < "n2"
+    n4 < n3; //false, comapre name "n4" < "n3"
+    n5 < n6; //true, compare "n5" < "n6"
+
+    TreeNode A("A"), B("B"), C("C"), D("D");
+    TreeNode N1("N1", &A, nullptr), N2("N1", nullptr, &A);
+    N1 < N2; //false, N1.left not null, N2 left null
+    TreeNode N3("N3", &N1, nullptr), N4("N3", &N1, &A);
+    N3 < N4; //true, subnodes count N3 < N4
+    TreeNode N5("N5", &N1, &A), N6("N5", &N1, &B);
+    N5 < N6; //true, subnode right A <  right B
+    TreeNode N7("N7", &A, &B), N8("N7", &B, &B);
+    N7 < N8; // true, subnode left A < left B
 }
