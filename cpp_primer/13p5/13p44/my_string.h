@@ -24,6 +24,9 @@ public:
     //move assignment operator
     my_string_c& operator=(my_string_c&& rhs);
 
+    char& operator[](size_t n);
+    const char& operator[](size_t n) const;
+
     bool empty() const {return mp_start == mp_end;} //note: null_ptr = null_ptr; nullptr cannot compare with char*;
     unsigned int size() const {return mp_end - mp_start;} //not include the last '\0'; nullptr - nullptr = 0
     char* begin() const {return mp_start;};

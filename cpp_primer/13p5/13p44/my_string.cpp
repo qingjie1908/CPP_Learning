@@ -297,3 +297,10 @@ bool operator<(const my_string_c& lhs, const my_string_c& rhs){
     //while loop finished, no return, then all char equal
     return false;
 }
+
+char& my_string_c::operator[](size_t n){
+    return mp_start[n];
+}
+const char& my_string_c::operator[](size_t n) const{
+    return mp_start[n];
+}

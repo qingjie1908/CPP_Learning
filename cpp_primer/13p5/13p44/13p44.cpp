@@ -139,5 +139,7 @@ int main()
     m_str12 < m_str8
     true  
     */
+
+    std::cout << m_str12[1] << std::endl;
     return 0;
 }
