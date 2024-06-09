@@ -14,9 +14,12 @@ friend bool operator!=(const TreeNode& lhs, const TreeNode& rhs);
 friend bool operator<(const TreeNode& lhs, const TreeNode& rhs);
 public:
     TreeNode():value(std::string()), count(0), left(nullptr), right(nullptr){}
-    TreeNode(const std::string& name = "", TreeNode* left_node = nullptr, TreeNode* right_node = nullptr);
+    TreeNode(const std::string& name);
+    TreeNode(const std::string& name, TreeNode* left_node, TreeNode* right_node);
     TreeNode(const TreeNode& orig);
-    TreeNode& operator=(const TreeNode& rhs);
+    TreeNode(TreeNode&& orig); //move constructor
+    TreeNode& operator=(const TreeNode& rhs); //copy assignment
+    TreeNode& operator=(TreeNode&& rhs); //move assignment
     ~TreeNode();
 
     std::string value;

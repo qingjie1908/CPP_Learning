@@ -4,10 +4,17 @@
 #include <iostream>
 #include <memory>
 
+TreeNode::TreeNode(const std::string& name){
+    value = name;
+    count = 0;
+    left = nullptr;
+    right = nullptr;
+}
+
 TreeNode::TreeNode(const std::string& name, TreeNode* left_node, TreeNode* right_node){
     value = name;
     count = 0;
-    //left/right_node has default argument nullptr
+    
     if (left_node != nullptr) {left = new TreeNode(*left_node); count += left_node->count; ++count;} else left = nullptr;
     if (right_node != nullptr) {right = new TreeNode(*right_node); count += right_node->count; ++count;} else right = nullptr;
 }
@@ -50,6 +57,39 @@ TreeNode& TreeNode::operator=(const TreeNode& rhs){
     //if this == &rhs, do nothing,
     
     std::cout << "TreeNode copy assignment" << std::endl;
+    return *this;
+}
+//move constructor
+TreeNode::TreeNode(TreeNode&& orig){
+    value = orig.value;
+    count = orig.count;
+    left = orig.left;
+    right = orig.right;
+
+    //make sure rhs is safe to destroy
+    orig.left = nullptr;
+    orig.right = nullptr;
+    orig.count = 0;
+    orig.value = "";
+}
+//move assignment
+TreeNode& TreeNode::operator=(TreeNode&& rhs){
+    //check self assignemt
+    if(this != &rhs){ //not same obj
+        //first free old 'this'
+        free();
+        //now update 'this', pointer copy for TreeNode
+        value = rhs.value;
+        count = rhs.count;
+        left = rhs.left;
+        right = rhs.right;
+        //make sure rhs is safe to destroy
+        rhs.left = nullptr;
+        rhs.right = nullptr;
+        rhs.count = 0;
+        rhs.value = "";
+    }
+    //else lhs and rhs are the same obj, do nothing
     return *this;
 }
 

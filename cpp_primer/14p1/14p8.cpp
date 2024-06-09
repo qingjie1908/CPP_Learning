@@ -69,4 +69,10 @@ int main()
     //N5 < N6; //true, subnode right A <  right B
     TreeNode N7("N7", &A, &B), N8("N7", &B, &B);
     //N7 < N8; // true, subnode left A < left B
+
+    TreeNode NN1(std::move(N1)); //move constructor
+    TreeNode NN2;
+    NN2 = std::move(NN1); //move assignment
+
+    return 0;
 }
