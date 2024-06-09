@@ -80,6 +80,7 @@ public: // usually constructors and some member functions are public
     //overloaded operator
     //compound-assignmnet
     Sales_data& operator+=(const Sales_data& rhs);
+    Sales_data& operator=(const std::string& ps);
 
 public:
     double avg_price() const;
@@ -161,8 +162,6 @@ std::ostream& operator<<(std::ostream& os, const Sales_data& obj){
     return os;
 }
 
-//addition
-Sales_data operator+(Sales_data obj1, Sales_data obj2);
 
 //+= operator
 Sales_data& Sales_data::operator+=(const Sales_data& rhs){
@@ -182,4 +181,9 @@ Sales_data operator+(const Sales_data& lhs, const Sales_data& rhs){
     return sum;
 }
 
+//ex 14.22
+Sales_data& Sales_data::operator=(const std::string& ps){
+    bookNo = ps;
+    return *this;
+}
 
