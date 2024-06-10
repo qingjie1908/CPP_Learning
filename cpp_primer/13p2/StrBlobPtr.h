@@ -30,6 +30,25 @@ public:
 
     std::string& operator[](std::size_t n);
     const std::string& operator[](std::size_t n) const;
+    //prefix ++, --
+    StrBlobPtr& operator++();
+    StrBlobPtr& operator--();
+    //postfix ++,--
+    //postfix operators should return the old (unincremented or undecremented) value
+    //That value is returned as a value, not a reference
+    StrBlobPtr operator++(int); //compiler supplies 0 to int, we can but we should not use this int parameter
+    StrBlobPtr operator--(int);
+
+    StrBlobPtr& operator-(size_t n);
+    StrBlobPtr& operator+(size_t n);
+
+    std::string& operator*() const;
+    std::string* operator->() const;
+    //operator -> delegate work to own operator*
+    //operator->() must return pointer to class type (std or own defined class)
+    //or an object of a class type that defined own operator, in this case, repeat previous step
+    //at last, class_obj->mem is used as *(returned result).mem
+    //here return string* sp, then class_obj->size() means (*s_p).size()
 private:
     //check() return a shared_ptr to the vector in StrBlob object if the check succeeds
     std::shared_ptr<std::vector<std::string>>
@@ -43,6 +62,6 @@ private:
 
 bool operator==(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
 bool operator!=(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
-bool operator<(const StrBlobPtr& lhs, const StrBlobPtr& rhs);
+//bool operator<(const StrBlobPtr& lhs, const StrBlobPtr& rhs); not define < operator for pointer
 
 #endif

@@ -64,3 +64,54 @@ const std::string& StrBlobPtr::operator[](std::size_t n) const{
     auto share_p = wptr.lock();
     return (*share_p)[n];
 }
+
+//prefix ++/--
+StrBlobPtr& StrBlobPtr::operator++(){
+    //check 'curr' first
+    check(curr, "increment past end of StrBlobPtr");
+    //if no throw exception, continue
+    ++curr;
+    return *this;
+}
+
+StrBlobPtr& StrBlobPtr::operator--(){
+    --curr; // if curr is zero,decrementing it will yield an invalid subscript, very large positive value since curr is unsigned int
+    check(curr, "decrement past begin of StrBlobPtr");
+    return *this;
+}
+
+//postfix ++/--, return value, not reference
+StrBlobPtr StrBlobPtr::operator++(int){
+    StrBlobPtr ret = *this;
+    ++*this; //use own define prefix, prefix will check the increment
+    return ret;
+}
+
+StrBlobPtr StrBlobPtr::operator--(int){
+    StrBlobPtr ret = *this;
+    --*this;
+    return ret;
+}
+
+StrBlobPtr& StrBlobPtr::operator-(size_t n){
+    curr -= n;
+    return *this;
+}
+StrBlobPtr& StrBlobPtr::operator+(size_t n){
+    curr += n;
+    return *this;
+}
+
+std::string& StrBlobPtr::operator*() const{
+    auto shared_p = check(curr, "dereference past end");
+    //no throw exception, continue
+    return (*shared_p)[curr]; //*shared_p is vector<std::string>  
+}
+std::string* StrBlobPtr::operator->() const{
+    //delegate work to own operator*
+    //operator->() must return pointer to class type (std or own defined class)
+    //or an object of a class type that defined own operator, in this case, repeat previous step
+    //at last, class_obj->mem is used as *(returned result).mem
+    //here return string* sp, then class_obj->size() means (*s_p).size()
+    return &(operator*()); //operator*() return a string& in vec, then use address of operator to return string address as pointer
+}

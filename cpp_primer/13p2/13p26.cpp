@@ -8,7 +8,7 @@
 
 int main()
 {
-    StrBlob obj1({"a","b","c"}); //data 0x4098
+    StrBlob obj1({"aa","bb","cc"}); //data 0x4098
     StrBlobPtr obj1_ptr(obj1); //wptr 0x4098
 
     //copy intialized obj2
@@ -24,10 +24,21 @@ int main()
     obj1 = obj1;
     //now obj1 vector contents is same, share_ptr data value not change, still 0x4098
 
-    obj2.push_back("d");
+    obj2.push_back("dd");
     obj1 = obj2;
     //now obj1 vector contents add "d", also its shared_ptr data still 0x4098
-    std::cout << obj1[2] << " " << obj2_ptr[3] << std::endl; //c d
+    std::cout << obj1[2] << " " << obj2_ptr[3] << std::endl; //cc dd
+
+    //++/--
+    std::cout << *(obj2_ptr++) << std::endl; //aa
+    std::cout << *obj2_ptr << std::endl; //bb
+    std::cout << obj2_ptr->front() << std::endl; //b, obj2_ptr-> return string*, then derefence to string, then call string.front()
+    std::cout << *(++obj2_ptr) << std::endl; //cc
+    std::cout << *(obj2_ptr--) << std::endl; //cc
+    std::cout << *obj2_ptr << std::endl; //bb
+    std::cout << *(--obj2_ptr) << std::endl; //aa
+    std::cout << *(obj2_ptr+2) << std::endl; //cc
+    std::cout << *(obj2_ptr-1) << std::endl; //bb
 
     return 0;
 }
