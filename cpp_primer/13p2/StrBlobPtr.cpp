@@ -55,3 +55,12 @@ bool operator!=(const StrBlobPtr& lhs, const StrBlobPtr& rhs){
 //but lhs == rhs  return false, cause their holding memory address is different
 //so conflict with rule: if lhs != rhs, then one must be < than another
 //so should not define <
+
+std::string& StrBlobPtr::operator[](std::size_t n){
+    auto share_p = wptr.lock(); //share_p may be nullptr if wptr.expire() is true
+    return (*share_p)[n];
+}
+const std::string& StrBlobPtr::operator[](std::size_t n) const{
+    auto share_p = wptr.lock();
+    return (*share_p)[n];
+}

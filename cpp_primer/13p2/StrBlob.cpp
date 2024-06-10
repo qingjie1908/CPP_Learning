@@ -109,3 +109,9 @@ bool operator!=(const StrBlob& lhs, const StrBlob& rhs){
 bool operator<(const StrBlob& lhs, const StrBlob& rhs){
     return (*(lhs.data) < *(rhs.data)); //use std::vector < operator
 }
+std::string& StrBlob::operator[](std::size_t n){
+    return (*data)[n];
+}
+const std::string& StrBlob::operator[](std::size_t n) const{
+    return (*data)[n];
+}

@@ -56,6 +56,9 @@ public:
     StrBlobPtr begin() const;
     StrBlobPtr end() const;
 
+    std::string& operator[](std::size_t n);
+    const std::string& operator[](std::size_t n) const;
+
     //std::shared_ptr<std::vector<std::string>> data;
     //not need destructor since the only data member is shared ptr, when object go out of scope, shared_ptr manage to freed the memory
 

@@ -28,6 +28,8 @@ public:
     std::string& deref() const;
     StrBlobPtr& incr();
 
+    std::string& operator[](std::size_t n);
+    const std::string& operator[](std::size_t n) const;
 private:
     //check() return a shared_ptr to the vector in StrBlob object if the check succeeds
     std::shared_ptr<std::vector<std::string>>
