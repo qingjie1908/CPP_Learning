@@ -3,7 +3,8 @@
 
 constStrBlobPtr::constStrBlobPtr(): curr(0) {} //implicty initialize wptr to a nullptr
 constStrBlobPtr::constStrBlobPtr(const StrBlob& a, size_t sz):wptr(a.data), curr(sz){}
-
+//warning field 'wptr' will be initialized after field 'curr' since curr is declared first in class definaiton
+//better follow class member declaration order 
 std::shared_ptr<std::vector<std::string>>
 constStrBlobPtr::check(std::size_t n, const std::string& msg) const{
     auto p = wptr.lock();

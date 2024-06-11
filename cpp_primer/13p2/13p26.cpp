@@ -6,6 +6,7 @@
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/StrBlob.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/StrBlobPtr.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/constStrBlobPtr.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/StrBlobPtrPtr.h"
 
 int main()
 {
@@ -45,6 +46,25 @@ int main()
     std::cout << *c_p1 << std::endl; //bb
     std::cout << c_p1->back() << std::endl; //b
     std::cout << c_p1[2] << " " << c_p1[1] << std::endl; //cc bb
+
+    //ex 14.32 test StrBlobPtrPtr
+    StrBlobPtrPtr p_obj2_ptr(obj2_ptr);
+    std::cout << (*(*p_obj2_ptr)).back() << std::endl; //b
+    std::cout << p_obj2_ptr->operator->()->back() << std::endl; //b
+
+    //note if we define StrBlobPtr& operator->() {return operator*();} in StrBlobPtrPtr class
+    //then when we call this_obj->, it return a class object of StrBlobPtr not a pointer
+    //since StrBlobPtr also has overloaded -> operator, it will repeat call its own ->
+    //then finnaly return a pointer to string
+    //so we can directly call this_obj->back(); which is actually (*string).back
+
+    //if we defind StrBlobPtr* operator->(){return & operator*();}
+    //then this_obj-> return a pointer, not a class object, so  equals *(pointer_to_StrBlobPtr).mem
+    //then we only call StrBlobPtr member func, not std::string member func;
+    //so if we want to achieve same result as above, we need to use this_obj->operator->back();
+    //the operator-> is a member func of *(this_obj->()), which is a member func of a StrBlobPtr obj;
+
+    //The overloaded arrow operator must return either a pointer to a class type or an object of a class type that defines its own operator arrow.
     
 
     return 0;
