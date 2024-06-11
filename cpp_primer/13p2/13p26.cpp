@@ -5,6 +5,7 @@
 
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/StrBlob.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/StrBlobPtr.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/constStrBlobPtr.h"
 
 int main()
 {
@@ -39,6 +40,12 @@ int main()
     std::cout << *(--obj2_ptr) << std::endl; //aa
     std::cout << *(obj2_ptr+2) << std::endl; //cc
     std::cout << *(obj2_ptr-1) << std::endl; //bb
+
+    constStrBlobPtr c_p1(obj2, 1);
+    std::cout << *c_p1 << std::endl; //bb
+    std::cout << c_p1->back() << std::endl; //b
+    std::cout << c_p1[2] << " " << c_p1[1] << std::endl; //cc bb
+    
 
     return 0;
 }

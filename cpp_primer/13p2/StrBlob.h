@@ -9,6 +9,7 @@ class StrBlobPtr;
 
 class StrBlob{
 friend class StrBlobPtr; // so that StrBlobPtr can access StrBlob's private member
+friend class constStrBlobPtr;
 friend bool operator==(const StrBlob& lhs, const StrBlob& rhs);
 friend bool operator!=(const StrBlob& lhs, const StrBlob& rhs);
 friend bool operator<(const StrBlob& lhs, const StrBlob& rhs);

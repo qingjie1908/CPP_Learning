@@ -1,6 +1,9 @@
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/StrBlob.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/13p2/StrBlobPtr.h"
 
+StrBlobPtr::StrBlobPtr(StrBlob& a, size_t sz):wptr(a.data), curr(sz){}
+StrBlobPtr::StrBlobPtr(const StrBlob& a, size_t sz):wptr(a.data), curr(sz){}
+
 std::shared_ptr<std::vector<std::string>>
 StrBlobPtr::check(std::size_t i, const std::string &msg) const
 {
