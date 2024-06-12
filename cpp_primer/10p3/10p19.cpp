@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 //put vector of string in alphabetical order and remove duplicates
 void elimDups(std::vector<std::string> &vec_s)
@@ -19,7 +20,23 @@ void elimDups(std::vector<std::string> &vec_s)
     }
 }
 
+//ex 10.40 use class call operator inplace of lambda
+class check_size{
+public:
+    check_size(size_t n):sz(n){}
+    bool operator()(const std::string& s) const{
+        return s.size() < sz;
+    }
+private:
+    size_t sz;
+};
 
+class print_string{
+public:
+    void operator()(const std::string& s) const{
+        std::cout << s << " ";
+    }
+};
 
 void biggies(std::vector<std::string> &words, std::vector<std::string>::size_type sz)
 {
@@ -30,7 +47,8 @@ void biggies(std::vector<std::string> &words, std::vector<std::string>::size_typ
     //use partition instead of find_if
     //iter returns the one past element's iter of the firt part's last element
     //element's predicates returns true is in first part
-    auto iter = std::stable_partition(words.begin(), words.end(), [sz](const std::string &s){return s.size() < sz;});
+    //auto iter = std::stable_partition(words.begin(), words.end(), [sz](const std::string &s){return s.size() < sz;});
+    auto iter = std::stable_partition(words.begin(), words.end(), check_size(sz)); //use check_size class objects call operator
 
     //how many element has size larger than sz?
     auto count = words.end() - iter;
@@ -41,7 +59,8 @@ void biggies(std::vector<std::string> &words, std::vector<std::string>::size_typ
     //on each element in the range, the element here is string, not iter
     //so the parameter list is &string
     //since the lambda func no return , then it returns void
-    std::for_each(iter, words.end(), [](const std::string &s){std::cout << s << " ";});
+    //std::for_each(iter, words.end(), [](const std::string &s){std::cout << s << " ";});
+    std::for_each(iter, words.end(), print_string()); //use print_string class object call operator
 
     std::cout << std::endl;
 }
