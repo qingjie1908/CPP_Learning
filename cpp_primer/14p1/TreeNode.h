@@ -23,6 +23,8 @@ public:
     TreeNode& operator=(const std::string ps); //assignment operator just change string value
     ~TreeNode();
 
+    //conversion operator
+    explicit operator bool() {return left != nullptr || right != nullptr;}
     std::string value;
     
 private:

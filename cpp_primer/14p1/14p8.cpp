@@ -74,5 +74,15 @@ int main()
     TreeNode NN2;
     NN2 = std::move(NN1); //move assignment
 
+    //wrong, cause bool conversion operator is explicit, need static cast
+    //bool has_subnodes = A;
+    bool has_subnodes = static_cast<bool>(A); //false
+    //but in condition check, explicity bool conversion opearator can be used implicitly
+    if(A){
+        std::cout << "A has subnodes." << std::endl;
+    } else {
+        std::cout << "A has no subnodes." << std::endl;
+    }
+
     return 0;
 }
