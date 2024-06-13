@@ -82,6 +82,10 @@ public: // usually constructors and some member functions are public
     Sales_data& operator+=(const Sales_data& rhs);
     Sales_data& operator=(const std::string& ps);
 
+    //conversion operator
+    operator std::string() const { return bookNo;}
+    operator double() const { return revenue;}
+
 public:
     double avg_price() const;
     // data members are unchanged as follows
