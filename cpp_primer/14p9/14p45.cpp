@@ -12,4 +12,11 @@ int main()
     
     //if covnersion opearator is explicit, we need to use static_cast, implicit d2 = obj2 is error;
     d2 = static_cast<double>(obj2) + 1; //28.299999
+
+    //if Sales_data has operator+(const Sales_data& obj, double d)
+    
+    //double dd = obj1 + 4.4;
+    //ambiguous:
+    //it can call Sales_data::oeprator+
+    //or it can first convert obj1 to double, then use std::double + operator
 }
