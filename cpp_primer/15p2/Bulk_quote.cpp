@@ -28,3 +28,9 @@ double Bulk_quote::net_price(std::size_t cnt) const{
         return cnt * price;
 
 }
+
+//override specifier not need outside of class body
+void Bulk_quote::debug(std::ostream& os) const{
+    os << "This obj has member: bookNo = " << isbn() << ", price = " << price << std::endl;
+    os << "                     min_qty = " << min_qty << ", max_qty = " << max_qty << ", discount = " << discount << std::endl;
+}

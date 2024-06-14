@@ -2,6 +2,7 @@
 #define QUOTE
 
 #include <string>
+#include <iostream>
 
 class Quote{
 public:
@@ -15,6 +16,7 @@ public:
     //declared as virtual in base class also implicity declare as virtual in derived classs
     //dynamic binding, which version net_price() to call depend on object type, that can be made until run time
     virtual double net_price(std::size_t n) const {return n * price;}
+    virtual void debug(std::ostream& os) const;
     
 private:
     std::string bookNo; //derived class member func cannot access, class user cannot

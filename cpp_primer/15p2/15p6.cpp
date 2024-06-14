@@ -47,5 +47,15 @@ int main()
     ISBN: ddd # sold: 20 total due: 200
     ISBN: eee # sold: 30 total due: 200
     */
+
+    obj_base.debug(std::cout);
+    obj3.debug(std::cout);
+    //output
+    /*
+    This obj has member: bookNo = aaa, price = 10
+    This obj has member: bookNo = ddd, price = 10
+                         min_qty = 10, max_qty = 10, discount = 0
+    
+    */
     return 0;
 }
