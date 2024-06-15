@@ -15,6 +15,7 @@ public:
     //void print(std::ostream &os) { print(os); os << " " << i; } //no scope operator, call this.print(os), which is derived version, dead loop
     //should be base::print(os)
     void print(std::ostream &os) { base::print(os); os << " " << i << std::endl; }
+    std::string name() { return "derived name()"; }
 private:
     int i = 33; 
 };
