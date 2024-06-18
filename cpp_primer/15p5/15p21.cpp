@@ -2,6 +2,7 @@
 #include <iostream>
 class Geometric_primitive{
 public:
+    virtual ~Geometric_primitive() = default; //base class always has virtual destructor, even they do nothing
     void print() {
         std::cout << "Perimeters: " << get_perimeters() << ", Areas: " << get_areas() << std::endl;
     }
