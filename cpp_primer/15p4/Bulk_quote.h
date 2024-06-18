@@ -17,6 +17,33 @@ public:
     //A Derived Class Constructor Initializes Its Direct Base Class Only
     //Quote part initialization id done when calling dierect base constructor
 
+    // ex 15.27:
+    //a constructor using declaration does not change the access level of the inherited constructor(s)
+    //When applied to a constructor, a using declaration causes the compiler to gen- erate code for the derived constructor
+    //for each constructor in the base class, the compiler generates a constructor in the derived class that has the same parameter list, and empty function body
+    //default arguments in direct base constructor are not inherited
+    //using Disc_quote::Disc_quote;
+    //then Disc_quote:: all constructor will be seen in this scope (access is also inherited) and comipler generate code for them
+    //default, copy, and move constructors are not inherited
+    //so below are inherited Disc_quote:: user defined contructors, default arguments are not inherited, only keep paramter
+    //will generate three contructor, each omit one parameter that has default arguments in the direct Base constructor
+    //so generate total 3 version constructor as follows:
+    //Bulk_quote(const std::string& book, double price, std::size_t qty, double disc):Disc_quote(const std::string& book, double price, std::size_t qty, double disc){}  //the data member max_qty in derived class are default intialized
+    //Bulk_quote(const std::string& book, double price, std::size_t qty):Disc_quote(const std::string& book, double price, std::size_t qty){}
+    //Bulk_quote(const std::string& book, double price):Disc_quote(const std::string& book, double price){}
+
+    //if we have own defined Bulk_quote constructor that has same paramter list as inherited direct Base constructor, then that direct Base constructor will not be inherited
+
+    //so now if we do not define own Bulk_quote constructor, and using Disc_quote::Disc_quote;
+    //then in main() we can create Bulk_quote obj as follows
+    // Bulk_quote obj_0; use Bulk_quote default constructor
+    // Bulk_quote obj_1("aa", 10); use inherited constructor 1
+    // Bulk_quote obj_2("aa", 10, 10); use inherited constructor 2
+    // Bulk_quote obj_3("aa", 10, 10, 10); use inherited constructor 3
+
+    //if add own defined constructor with four paramter, then Bulk_quote obj_3("aa", 10, 10, 10) will use own-defined, it will not inherit the four parameter version from direct base
+
+    //So in Bulk_quote(): member intializer list, we can call
     double net_price(std::size_t) const override;
 
     Bulk_quote(const Bulk_quote& orig):Disc_quote(orig){

@@ -51,6 +51,12 @@ int main()
     //obj1
     //~Quote() called.
 
+    // Bulk_quote obj_0;
+    // Bulk_quote obj_1("aa", 10);
+    // Bulk_quote obj_2("aa", 10, 10);
+    // Bulk_quote obj_3("aa", 10, 10, 10);
+
+
     return 0;
     //destructor for obj_bulk3, obj_bulk2, obj_bulk1, obj
     //Bulk_quote destructor called.

@@ -8,7 +8,7 @@
 class Disc_quote : public Quote {
 public:
     Disc_quote() = default;
-    Disc_quote(const std::string& book, double price, std::size_t qty, double disc):
+    Disc_quote(const std::string& book, double price, std::size_t qty = 0, double disc = 0):
         Quote(book, price), quantity(qty), discount(disc){
             if(discount > 1 || discount < 0){
                                 std::cout << "invalid discount setting, set discount to 0." << std::endl;
