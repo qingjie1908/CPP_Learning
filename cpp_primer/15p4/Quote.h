@@ -61,6 +61,10 @@ public:
         std::cout << "Quote move assignment." << std::endl;
         return *this;
     }
+
+    //virtual clone() function return pointer to new allowcated memory
+    virtual Quote* clone() const & { return new Quote(*this);}
+    virtual Quote* clone() && {return new Quote(std::move(*this));}
     
 private:
     std::string bookNo; //derived class member func cannot access, class user cannot

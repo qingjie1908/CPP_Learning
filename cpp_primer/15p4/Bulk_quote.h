@@ -88,6 +88,14 @@ public:
         std::cout << "Bulk_quote destructor called." << std::endl;
     }
 
+    Bulk_quote* clone() const & override {return new Bulk_quote(*this);}
+    Bulk_quote* clone() && override { return new Bulk_quote(std::move(*this));}
+    //With one exception, the return type of a virtual in the derived class also must match the return type of the function from the base class
+    //The exception applies to virtuals that return a reference (or pointer) to types that are themselves related by inheritance
+    //However, such return types require that the derived-to-base conversion from D to B is accessible
+    //so if Disc_quote : private Quote,  all Quote part (including constrcutor) become private in class Disc_quote, and class Bulk_quote cannot access to its Quote part, so cannot override since it will use Quote::constructor in new, and also return Quote* is not allowed cause this class cannot access Quote
+    //so here return Bulk_quote* is ok
+
 
 private:
     //since we only decide max_qty strategy for Bulk_quote class, so max_qty be a member of B ulk_quote, not Disc_quote
