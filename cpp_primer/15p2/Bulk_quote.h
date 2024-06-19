@@ -6,26 +6,27 @@
 
 //access specifier used in a derivation list
 //determines whether users of a derived class are allowed to know that the derived class inherits from its base class.
-// derivation is public, the public members of the base class become part of the interface of the derived class as well
+// derivation is public, the public members of the base class become part of the interface of the derived class object as well
 //so for class Bulk_quote : public Quote, Bulk_quote obj_derived, obj_derived.isbn() and print_total(std::cout, obj_derived, 10) is ok
-//if class Bulk_quote : public Quote,  Bulk_quote obj_derived, obj_derived.isbn() and print_total(std::cout, obj_derived, 10) is illegal, only obj_derived.net_price() is ok
+//if class Bulk_quote : private Quote,  Bulk_quote obj_derived, obj_derived.isbn() and print_total(std::cout, obj_derived, 10) is illegal, only obj_derived.net_price() is ok
 
 //but note, even class Bulk_quote : private Quote
 //inside Quote class, we can still call like std::stirng ss = isbn();
 //its like, when we defind class Bulk_Quote, the class Bulk_Quote itself is the user of Quote
-//so in Bulk_Quote class defination, whether it can use isbn() or price or bookNo depends on whether these member/func are public/protected in class Quote or private in class Quote
-//so in class Bulk_quote : private Quote{}, std::string ss = this->isbn(); double dd = price; is ok, since they are public in class Quote, ss = bookNo; is illegal, since it's private in class Quote
+//so in Bulk_Quote class body defination, whether it can use isbn() or price or bookNo depends on whether these member/func are public/protected in class Quote or private in class Quote
+//so in class Bulk_quote : private Quote{}, std::string ss = this->isbn(); double dd = price; is ok, since they are public/protected in class Quote, ss = bookNo; is illegal, since it's private in class Quote
 
-//when we define Bulk_Quote obj_derived; obj_derived is the user of derived Bulk_quote, not Quote
+//when we define Bulk_Quote obj_derived; obj_derived is the user of derived Bulk_quote class, not Quote class
 //so obj_derived.net_price() is ok,
 //printe_total(obj_derived) and obj_derived.isbn() is ok or not depend on the access specifier in derivation list
+//so public in derivation list is key to dynamic binding, if its private, then you cannot bind a Derived_obj to a Base type reference, cause the Base member even public is not seen by this derived obj
 
 //so user "class Bulk_quote" of "class Quote" can access which depend on the access specifier inside base class "Quote"
 //user obj_derived of "class Bulk_quote" can access which depend on the access specifier inside "class Bulk_Quote",
 //obj_derived whether can access base class public member and be treated as base class object, depends on the access specifier in the derivation list
 
 //When the derivation is public, the public members of the base class become part of the interface of the derived class as well. 
-//In addition, we can bind an object of a publicly derived type to a pointer or reference to the base type.
+//In addition, we can bind an object of a publicly derived type to a pointer or reference to the base type. key for dynamic binding
 
 class Bulk_quote : public Quote{
 public:
