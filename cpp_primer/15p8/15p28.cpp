@@ -29,7 +29,7 @@ int main()
 
     //it's like following:
     /*
-    std::shared_ptr<Quote> sp_bulk_qupte = std::make_shared<Bulk_quote>(Bulk_quote("bbb", 10, 10, 0.5, 100));
+    std::shared_ptr<Bulk_quote> sp_bulk_qupte = std::make_shared<Bulk_quote>(Bulk_quote("bbb", 10, 10, 0.5, 100));
     std::shared_ptr<Quote> sp_Quote;
     sp_Quote = sp_bulk_qupte; //coverted to base pointer
     */
