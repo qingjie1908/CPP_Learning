@@ -1,0 +1,61 @@
+#ifndef QUERY
+#define QUERY
+
+#include <string>
+#include <memory>
+
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query_base.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/WordQuery.h"
+
+class TextQuery;
+
+class Query{
+friend Query operator~(const Query& orig); //return a Query obj, obj.member shared_ptr<Query_Base>* point to a NotQuery object 
+friend Query operator|(const Query& lhs, const Query& rhs); //return a Query obj, obj.member shared_ptr<Query_Base>* point to a OrQuery object 
+friend Query operator&(const Query& lhs, const Query& rhs); //return a Query obj, obj.member shared_ptr<Query_Base>* point to a AndQuery object
+//inside these operator function, we create for example AndQuery obj, when we return it, we return the AndQuery obj pointer, so we use a pointer to construct return Query obj
+//so Query class need a construct that takes a std::shared_ptr<Query_base>
+
+public:
+    Query(const std::string& s):sp_qb(std::make_shared<WordQuery>(s)){
+        
+        //do not initialize in constructor body
+        /*
+        public : Thing(int _foo, int _bar){
+            member1 = _foo;
+            member2 = _bar;
+        }
+        is equivalent to
+
+        public : Thing(int _foo, int _bar) : member1(), member2(){
+            member1 = _foo;
+            member2 = _bar;
+        }
+        because they will be initialized before the constructor body starts executing, 
+        so basically twice the work is done. 
+        That also means, if the type of these members don't have default constructor, then your code will not compile.
+        */
+
+        std::cout << "Query(string)" << std::endl;
+    } //this will construct a WordQuery obj, and bind it to sp_pb;
+
+    //below is also ok WordQuery * q= new WordQuery(s), sp_qb(q) is ok (initialization) p can be converted to sp_qb, sp_qb = q is wrong, type mismatch 
+    // inline
+    // Query::Query(const std::string &s): sp_qb(new WordQuery(s)) { }
+
+
+    QueryResult eval(const TextQuery& t ) const {return sp_qb->eval(t);} //call virtual eval() in Query_base, dynamic binding
+    std::string rep() const {std::cout << "Query::rep()" << std::endl; return sp_qb->rep();} //call virtual rep() in Query_base, dynamic binding
+
+private:
+    //constructor to take std::shared_ptr<Query_base> cause operator return pointer to And/Or/NorQuery object
+    //we make it private cause we will not use Query_base and derived class to constrcut Query in user code
+    //Query_base and derived class are implementation class for Query; so that's why we need to friend operator overloaed function, they need to access private constrcutor
+    Query(std::shared_ptr<Query_base> sp_p):sp_qb(sp_p){std::cout << "Query(sp)" << std::endl;}
+    std::shared_ptr<Query_base> sp_qb;
+};
+
+std::ostream& operator<<(std::ostream& os, const Query& q);
+
+#endif
