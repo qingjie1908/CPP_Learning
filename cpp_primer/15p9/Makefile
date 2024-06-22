@@ -1,6 +1,6 @@
 SHELL := /bin/zsh
 
-TARGET_EXEC := Text_Query_Program
+TARGET_EXEC := main
 
 CXX := /usr/bin/g++
 CXXFLAGS := -std=c++20 -Wall -fcolor-diagnostics -fansi-escape-codes -g

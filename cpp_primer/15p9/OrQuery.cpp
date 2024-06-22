@@ -1,5 +1,10 @@
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/WordQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/OrQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/AndQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/NotQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/TextQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query.h"
 #include <set>
 
 Query operator|(const Query& lhs, const Query& rhs){
@@ -7,8 +12,10 @@ Query operator|(const Query& lhs, const Query& rhs){
 }
 
 QueryResult OrQuery::eval(const TextQuery& t) const{
-    QueryResult lhs_result = lhs.eval(t);
+    QueryResult lhs_result = lhs.eval(t); //here lhs rhs are type Query, need to include Query.h
     QueryResult rhs_result = rhs.eval(t);
+    //note lhs rhs can also And/Or/Not/Word Query type, so should include all header file
+    //when call eval, go to call eventually word query, then to call TextQuery::query() so need to include "TextQuery" header file
 
     //lhs_result: {{1, "asa"}, {2, "bbs"}}; occur n1 times in file
     //rhs_result: {{2, "bbs"}, {3, "xwe"}}; occur n2 times in file

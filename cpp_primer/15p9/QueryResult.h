@@ -14,15 +14,17 @@ friend class AndQuery;
 public:
     //constructor
     //p_tq is the shared pointer in TextQuery class
-    QueryResult(std::shared_ptr<std::vector<std::pair<int, std::string>>> p_tq, std::shared_ptr<int> p_oc, std::shared_ptr<std::vector<std::string>> p_f): p_result(p_tq), p_occur(p_oc), p_file(p_f) {}
+    QueryResult(std::shared_ptr<std::vector<std::pair<int, std::string>>> p_tq, std::shared_ptr<int> p_oc, std::shared_ptr<std::vector<std::string>> p_f): 
+                p_result(p_tq), p_occur(p_oc), p_file(p_f){}
 
-    QueryResult(){
+    QueryResult():p_result(std::make_shared<std::vector<std::pair<int, std::string>>>()), 
+                  p_occur(std::make_shared<int>(0)),
+                  p_file(std::make_shared<std::vector<std::string>>()){
+        //can use make_shared here cause QueryResult constructor is public
+        //if constructor is private, use new() in member initializer list
         //default constructor point to empty vec
-        p_result = std::make_shared<std::vector<std::pair<int, std::string>>>();
-
         //default constructor occur hold 0
-        p_occur = std::make_shared<int>(0);
-
+        //default constructor pfile hold empty vec
     } 
     
     
@@ -36,8 +38,6 @@ private:
     //share_ptr to hold the whole original input file for TextQuery
     //need this to find the NotQuery part
     std::shared_ptr<std::vector<std::string>> p_file;
-
-
 
     //after a TextQuery obj call obj.query(word), p_result may have results or a nullptr
 

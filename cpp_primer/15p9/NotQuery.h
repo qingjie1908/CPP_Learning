@@ -20,7 +20,6 @@
 
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query_base.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query.h"
-
 class NotQuery : public Query_base{
 public:
 friend class Query; //Query need access, Query q, ~q will return sp_qb hold address of new NotQuery obj
@@ -47,8 +46,6 @@ private:
     // std::shared_ptr<Query_base> sp_not;
     // //rep() should be public in class Query_Base
     // std::string rep() const override {return "~(" + sp_not->rep() + ")";}
-
-
 
 };
 

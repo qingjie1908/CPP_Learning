@@ -56,11 +56,16 @@ void generate_map(std::shared_ptr<std::vector<std::string>>& vec_file_sp_r, std:
 //constructor define
 //note generate_vec_file() and generate_map() must be definded before it can be used
 //or use forward decalration first then defind after constructor
-TextQuery::TextQuery(std::ifstream &input_f): input_file(input_f) {
-        generate_vec_file(input_file, vec_file_sp);
-        generate_map(vec_file_sp, line_record, word_line_map, word_count_map);
-
-}
+TextQuery::TextQuery(std::ifstream &input_f): 
+            input_file(input_f),
+            vec_file_sp(std::make_shared<std::vector<std::string>>()),
+            line_record({}),
+            word_line_map({}),
+            word_count_map({})
+            {
+                generate_vec_file(input_file, vec_file_sp);
+                generate_map(vec_file_sp, line_record, word_line_map, word_count_map);
+            }
 
 
 //member func query

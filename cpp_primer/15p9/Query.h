@@ -4,11 +4,13 @@
 #include <string>
 #include <memory>
 
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query_base.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/WordQuery.h"
-
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/OrQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/AndQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/NotQuery.h"
 class TextQuery;
+class QueryBase;
+class QueryReuslt;
 
 class Query{
 friend Query operator~(const Query& orig); //return a Query obj, obj.member shared_ptr<Query_Base>* point to a NotQuery object 
@@ -18,10 +20,20 @@ friend Query operator&(const Query& lhs, const Query& rhs); //return a Query obj
 //so Query class need a construct that takes a std::shared_ptr<Query_base>
 
 public:
-    Query(const std::string& s):sp_qb(std::make_shared<WordQuery>(s)){
+    Query(const std::string& s);
+    /*
+    Query(const std::string& s):sp_qb(new WordQuery(s)){
+
+        //sp_qb(std::make_shared<WordQuery>(s)) is wrong, cause make_shared is a class, cannot access WordQuery Private constructor even class Query is friend of class WordQuery cause make_shared itself not friend of class WordQuery
+        //std::make_shared has no access to the privates of MyClass. It's outside the scope of Class Query
+        //should use sp_qb(new WordQuery(s)), cause new is a lambda function
+
+        //The new is actually used within a lambda in a member-function; 
+        //A lambda defines a local-class, and C++ standards permits a local-class within a member-function to access everything the member-function can access.
+        //And its trivial to remember that member functions can access privates.. here class Query is friend of class WordQuery
         
         //do not initialize in constructor body
-        /*
+        
         public : Thing(int _foo, int _bar){
             member1 = _foo;
             member2 = _bar;
@@ -35,27 +47,40 @@ public:
         because they will be initialized before the constructor body starts executing, 
         so basically twice the work is done. 
         That also means, if the type of these members don't have default constructor, then your code will not compile.
-        */
+        
 
         std::cout << "Query(string)" << std::endl;
     } //this will construct a WordQuery obj, and bind it to sp_pb;
+    */
 
-    //below is also ok WordQuery * q= new WordQuery(s), sp_qb(q) is ok (initialization) p can be converted to sp_qb, sp_qb = q is wrong, type mismatch 
+    //below is ok WordQuery * q= new WordQuery(s), sp_qb(q) is ok (initialization) p can be converted to sp_qb, sp_qb = q is wrong, type mismatch 
     // inline
     // Query::Query(const std::string &s): sp_qb(new WordQuery(s)) { }
 
 
-    QueryResult eval(const TextQuery& t ) const {return sp_qb->eval(t);} //call virtual eval() in Query_base, dynamic binding
-    std::string rep() const {std::cout << "Query::rep()" << std::endl; return sp_qb->rep();} //call virtual rep() in Query_base, dynamic binding
+    QueryResult eval(const TextQuery& t ) const {return sp_qb->eval(t);} //call virtual eval() in Query_base, dynamic binding, default inline
+    std::string rep() const {std::cout << "Query::rep()" << std::endl; return sp_qb->rep();} //call virtual rep() in Query_base, dynamic binding, define inside class, default inline
 
 private:
     //constructor to take std::shared_ptr<Query_base> cause operator return pointer to And/Or/NorQuery object
     //we make it private cause we will not use Query_base and derived class to constrcut Query in user code
     //Query_base and derived class are implementation class for Query; so that's why we need to friend operator overloaed function, they need to access private constrcutor
-    Query(std::shared_ptr<Query_base> sp_p):sp_qb(sp_p){std::cout << "Query(sp)" << std::endl;}
+    Query(std::shared_ptr<Query_base> sp_p):sp_qb(sp_p){std::cout << "Query(sp)" << std::endl;} // default inline
     std::shared_ptr<Query_base> sp_qb;
 };
 
-std::ostream& operator<<(std::ostream& os, const Query& q);
+inline
+std::ostream& operator<<(std::ostream& os, const Query& q){return os << q.rep();}
+
+//public constructor of Query::
+inline
+Query::Query(const std::string &s): sp_qb(new WordQuery(s)) {std::cout << "Query(string)." << std::endl;}
+
+//point 1: inline tells the compiler that the function code can be expanded where the function is called, instead of effectively being called.
+//point 2: important!!! note for a class method, if it's marked as inline It tells the compiler that the function definition can be repeated.
+//point 3: class method define inside class are default inline
+//point 4: if class method define outside of class like here, it should explicit inline
+//if we define constructor in seperate Query.cpp file, then if we in another cpp file construct Querry but only include Query.h; then it cannot find the defination of the constructor
+
 
 #endif

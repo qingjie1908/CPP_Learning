@@ -1,6 +1,10 @@
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/WordQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/OrQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/AndQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/NotQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/TextQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query.h"
 #include <set>
 #include <algorithm> //set intersection
 #include <iterator>

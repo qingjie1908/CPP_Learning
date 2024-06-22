@@ -1,14 +1,7 @@
 #include <fstream>
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/TextQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
-// #include "15p9/Query_base.h"
-// #include "15p9/WordQuery.h"
-// #include "15p9/NotQuery.h"
-// #include "15p9/BinaryQuery.h"
-// #include "15p9/AndQuery.h"
-// #include "15p9/OrQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query.h"
-
 
 
 // void runQueries(std::ifstream &infile)
@@ -32,7 +25,7 @@
 int main()
 {
     std::ifstream input_file;
-    input_file.open("/Users/qingjie/github/CPP_Learning/cpp_primer/12p2/12p27.txt");
+    input_file.open("/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/15p9.txt");
 
     TextQuery text(input_file);
 
@@ -46,9 +39,6 @@ int main()
 
     input_file.close();
 
-    std::shared_ptr<std::string> p(std::make_shared<std::string> ("hello"));
-    p = std::make_shared<std::string> ("hello");
-
-
+    return 0;
 
 }
