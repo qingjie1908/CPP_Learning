@@ -4,12 +4,10 @@
 #include <string>
 #include <memory>
 
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query_base.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/WordQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/OrQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/AndQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/NotQuery.h"
+
 class TextQuery;
-class QueryBase;
 class QueryReuslt;
 
 class Query{

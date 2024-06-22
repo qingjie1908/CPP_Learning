@@ -1,8 +1,4 @@
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/WordQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/OrQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/AndQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/NotQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/TextQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query.h"
 #include <set>
@@ -39,12 +35,12 @@ QueryResult AndQuery::eval(const TextQuery& t) const{
 
     //now new_and_set is {2}, push_back input file index at 1
 
-    std::shared_ptr<std::vector<std::pair<int, std::string>>> sp_new_or_vec_result;
+    std::shared_ptr<std::vector<std::pair<int, std::string>>> sp_new_or_vec_result = std::make_shared<std::vector<std::pair<int, std::string>>>();
     for (auto line_number : new_and_set){
         sp_new_or_vec_result->push_back({line_number, (*(lhs_result.p_file))[line_number - 1]});
     }
 
-    std::shared_ptr<int> sp_new_and_occur;
+    std::shared_ptr<int> sp_new_and_occur = std::make_shared<int>(0);
     (*sp_new_and_occur) = new_and_set.size();
 
     return QueryResult(sp_new_or_vec_result, sp_new_and_occur, lhs_result.p_file);

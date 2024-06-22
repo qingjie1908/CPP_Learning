@@ -1,10 +1,6 @@
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/WordQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/OrQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/AndQuery.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/NotQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/TextQuery.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
 
 //non-member func
 //need access NotQuery private constructor, make it friend to class NotQuery
@@ -32,7 +28,7 @@ QueryResult NotQuery::eval(const TextQuery& t) const {
     //has_q.p_file is {"asf", "tty", "asd", "43ty", "sdagt", "ertqw"};
     
     //Generate a new QueryResult no_has_q, no_has_q.p_result {{1, "asf"}, {2, "tty"}, {4, "43ty"}, {6, "ertqw"}}
-    std::shared_ptr<std::vector<std::pair<int, std::string>>> sp_new_not_result;
+    std::shared_ptr<std::vector<std::pair<int, std::string>>> sp_new_not_result = std::make_shared<std::vector<std::pair<int, std::string>>>(); //need initialize to empty vec, otherwise is nullptr
     auto curr = has_q.p_result->begin(); //curr refer to a pair like {3, "asd"}
     auto end = has_q.p_result->end();
     for(decltype(size_file) check_line = 1; check_line <= size_file; ++check_line){

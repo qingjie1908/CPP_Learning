@@ -41,4 +41,35 @@ int main()
 
     return 0;
 
+    //output
+    /*
+    WordQuery(string).
+    Query(string).
+    WordQuery(string).
+    Query(string).
+    BinaryQuery::construct.
+    AndQuery::constrcut
+    Query(sp)
+    WordQuery(string).
+    Query(string).
+    BinaryQuery::construct.
+    OrQuery::construct.
+    Query(sp)
+    Executing Query for: Query::rep()
+    BinaryQuery::rep()
+    Query::rep()
+    BinaryQuery::rep()
+    Query::rep()
+    Wordquery::rep()
+    Query::rep()
+    Wordquery::rep()
+    Query::rep()
+    Wordquery::rep()
+    fiery & bird | wind
+    element occurs 3 times: 
+            (line 2) Her Daddy says when the wind blows
+            (line 4) like a fiery bird in flight.
+            (line 5) A beautiful fiery bird, he tells her,
+    */
+
 }

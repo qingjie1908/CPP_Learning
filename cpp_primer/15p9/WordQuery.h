@@ -19,8 +19,8 @@
 */
 
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/Query_base.h"
-#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/TextQuery.h"
+#include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
 class Query;
 class QueryResult;
 

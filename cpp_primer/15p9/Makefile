@@ -1,4 +1,4 @@
-SHELL := /bin/zsh
+# SHELL := /bin/zsh
 
 TARGET_EXEC := main
 
@@ -10,7 +10,7 @@ BUILD_DIR := $(SRC_DIRS)
 
 # Find all the C and C++ files we want to compile
 # Note the single quotes around the * expressions. The shell will incorrectly expand these otherwise, but we want to send the * directly to the find command.
-SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c')
+SRCS := $(shell find $(SRC_DIRS) -maxdepth 1 -name '*.cpp' -or -name '*.c')
 
 OBJS := $(patsubst %.cpp,%.o,$(SRCS))
 
