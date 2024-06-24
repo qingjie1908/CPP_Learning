@@ -43,5 +43,7 @@ QueryResult AndQuery::eval(const TextQuery& t) const{
     std::shared_ptr<int> sp_new_and_occur = std::make_shared<int>(0);
     (*sp_new_and_occur) = new_and_set.size();
 
-    return QueryResult(sp_new_or_vec_result, sp_new_and_occur, lhs_result.p_file);
+    int check_type = t.organize_by();
+    QueryResult obj(sp_new_or_vec_result, sp_new_and_occur, lhs_result.p_file, check_type);
+    return obj;
 }

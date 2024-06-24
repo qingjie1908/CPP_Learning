@@ -18,11 +18,14 @@ friend void generate_map(std::vector<std::string>& vec_r, std::set<int>& line_re
 //friend class QueryResult;
 public:
     //constructor declaration, using ifstream to store the input file
-    TextQuery(std::ifstream &input_f);
+    TextQuery(std::ifstream &input_f, int i = 1);
+    //ex15.42 (a), default generate vector store input file line by line,
+    //if i = 2, then store input file sentence by sentence
 
     //member func query(), to find the line for given word
     //return a QueryResult obj
     QueryResult query(const std::string& find_word) const;
+    int organize_by() const {return check_type;}
 
 private:
     std::ifstream& input_file; //note when we pass stream as constructor element, it's a reference, cannot copy
@@ -34,6 +37,8 @@ private:
     std::set<int> line_record; //hold the line numbers on which each word appears
     std::map<std::string, std::set<int>> word_line_map; //map, word and its corresponding set holding line number on which word appear
     std::map<std::string, int> word_count_map; //map, word and its occurrence in the file
+
+    int check_type; //1: organize file line by line, 2: organized sentence by sentence
 
 };
 

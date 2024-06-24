@@ -42,6 +42,6 @@ QueryResult OrQuery::eval(const TextQuery& t) const{
 
     *sp_new_or_occur = merge_line_number.size();
 
-    return QueryResult(sp_new_or_result, sp_new_or_occur, lhs_result.p_file);
+    return QueryResult(sp_new_or_result, sp_new_or_occur, lhs_result.p_file, t.organize_by());
 
 }

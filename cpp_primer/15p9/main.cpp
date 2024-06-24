@@ -37,6 +37,22 @@ int main()
     
     print(std::cout, q_r);
 
+    //ex 15.40, no match, just putput ff | bb
+    Query q1 = Query("ff") | Query("bb");
+    QueryResult q1_r = q1.eval(text);
+    std::cout << "Executing Query for: " << q1 << std::endl;
+    print(std::cout, q1_r);
+
+    input_file.close();
+
+    //ex 15.42 (a), organized input file sentence by sentence, not line by line
+    input_file.open("/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/15p9.txt");
+    TextQuery text2(input_file, 2);
+    Query q2("fiery");
+    QueryResult q2_r = q2.eval(text2);
+    std::cout << "Executing Query for: " << q2 << std::endl;
+    print(std::cout, q2_r);
+
     input_file.close();
 
     return 0;

@@ -44,5 +44,6 @@ QueryResult NotQuery::eval(const TextQuery& t) const {
     }
 
     //return new QueryResult no_has_q,
-    return QueryResult(sp_new_not_result, has_q.p_occur, has_q.p_file);
+    QueryResult new_q(sp_new_not_result, has_q.p_occur, has_q.p_file, t.organize_by());
+    return new_q;
 }

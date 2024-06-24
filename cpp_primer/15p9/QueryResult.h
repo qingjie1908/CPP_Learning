@@ -14,12 +14,13 @@ friend class AndQuery;
 public:
     //constructor
     //p_tq is the shared pointer in TextQuery class
-    QueryResult(std::shared_ptr<std::vector<std::pair<int, std::string>>> p_tq, std::shared_ptr<int> p_oc, std::shared_ptr<std::vector<std::string>> p_f): 
-                p_result(p_tq), p_occur(p_oc), p_file(p_f){}
+    QueryResult(std::shared_ptr<std::vector<std::pair<int, std::string>>> p_tq, std::shared_ptr<int> p_oc, std::shared_ptr<std::vector<std::string>> p_f, int i): 
+                p_result(p_tq), p_occur(p_oc), p_file(p_f), check_type(i){}
 
     QueryResult():p_result(std::make_shared<std::vector<std::pair<int, std::string>>>()), 
                   p_occur(std::make_shared<int>(0)),
-                  p_file(std::make_shared<std::vector<std::string>>()){
+                  p_file(std::make_shared<std::vector<std::string>>()),
+                  check_type(1){
         //can use make_shared here cause QueryResult constructor is public
         //if constructor is private, use new() in member initializer list
         //default constructor point to empty vec
@@ -40,6 +41,8 @@ private:
     std::shared_ptr<std::vector<std::string>> p_file;
 
     //after a TextQuery obj call obj.query(word), p_result may have results or a nullptr
+
+    int check_type;
 
 };
 

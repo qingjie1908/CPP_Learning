@@ -2,10 +2,20 @@
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/15p9/QueryResult.h"
 
 //non-member function
-void generate_vec_file(std::ifstream& in_f, std::shared_ptr<std::vector<std::string>>& vec_file_sp_r){ //shared_ptr vec_file_sp pass by reference
+void generate_vec_file(std::ifstream& in_f, std::shared_ptr<std::vector<std::string>>& vec_file_sp_r, int i){ //shared_ptr vec_file_sp pass by reference
     std::string read_line;
-    while(getline(in_f, read_line)){
-        vec_file_sp_r->push_back(read_line);
+    //ex15.42 (a), default generate vector store input file line by line,
+    //if i = 2, then store input file sentence by sentence
+    if (i == 1){ //store line by line
+        while(getline(in_f, read_line)){
+            vec_file_sp_r->push_back(read_line);
+        }
+    }
+    if (i == 2){ //store sentence by sentence
+        while(getline(in_f, read_line, '.')){ //delimiter is char '.'
+            read_line.push_back('.'); //delimiter is not included
+            vec_file_sp_r->push_back(read_line);
+        }
     }
 }
 
@@ -56,14 +66,15 @@ void generate_map(std::shared_ptr<std::vector<std::string>>& vec_file_sp_r, std:
 //constructor define
 //note generate_vec_file() and generate_map() must be definded before it can be used
 //or use forward decalration first then defind after constructor
-TextQuery::TextQuery(std::ifstream &input_f): 
+TextQuery::TextQuery(std::ifstream &input_f, int i): 
             input_file(input_f),
             vec_file_sp(std::make_shared<std::vector<std::string>>()),
             line_record({}),
             word_line_map({}),
-            word_count_map({})
+            word_count_map({}),
+            check_type(i)
             {
-                generate_vec_file(input_file, vec_file_sp);
+                generate_vec_file(input_file, vec_file_sp, check_type);
                 generate_map(vec_file_sp, line_record, word_line_map, word_count_map);
             }
 
@@ -82,7 +93,7 @@ QueryResult TextQuery::query(const std::string& find_word) const {
     
 
     //use p_hold and occurrence to construct a QueryResult class obj, also pass vec_file_sp, so QueryResult has access to orginall input file
-    QueryResult obj(p_hold, occurrence, vec_file_sp);
+    QueryResult obj(p_hold, occurrence, vec_file_sp, check_type);
 
     if(word_line_map.count(find_word)){ //there is a word in this file
 

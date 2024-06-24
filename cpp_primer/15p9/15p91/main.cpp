@@ -20,6 +20,9 @@ int main()
     
     print(std::cout, q_r);
 
+    Query q2(q); //pointer copy, not value copy
+    QueryResult q2_r = q1.eval(text);
+
     input_file.close();
 
     return 0;
