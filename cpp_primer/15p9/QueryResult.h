@@ -5,9 +5,15 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <limits>
+
+
 
 class QueryResult{
-friend std::ostream& print(std::ostream& os, QueryResult& result_obj);
+friend std::ostream& print(std::ostream& os, QueryResult& result_obj, int range_low, int range_high);
+//if friend declaration has default arguments, it must be the only defination, so if add default arguments here, it should add defination body
+//so first declare print() with default arguments earlier, non-friend declaration at namespace scope of this function that includes the default arguments.
+//then in .cpp define it, (.cpp file cannot have default arguments again)
 friend class NotQuery;
 friend class OrQuery;
 friend class AndQuery;
@@ -45,5 +51,9 @@ private:
     int check_type;
 
 };
+
+std::ostream& print(std::ostream& os, QueryResult& result_obj, int range_low = 1, int range_high = std::numeric_limits<int>::max());
+//declare this as non-freind with default argument
+//then define this in .cpp, inside .cpp defination cannot have default arguments again
 
 #endif
