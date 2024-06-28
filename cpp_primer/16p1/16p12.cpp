@@ -28,5 +28,16 @@ int main()
     std::cout << *(++BlobPtr1) << std::endl; //cc
     std::cout << *(BlobPtr2--) << std::endl; //bb
 
+    if(BlobPtr1 == BlobPtr2){
+        std::cout << "BlobPtr1 == BlobPtr2" << std::endl;
+    }
+
+    if(BlobPtr1 < BlobPtr2){
+        std::cout << "BlobPtr1 < BlobPtr2" << std::endl;
+    }
+
+    if(BlobPtr2 < BlobPtr1){
+        std::cout << "BlobPtr2 < BlobPtr1" << std::endl;
+    }
 
 }

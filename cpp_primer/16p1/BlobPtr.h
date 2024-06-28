@@ -4,7 +4,22 @@
 #include "/Users/qingjie/github/CPP_Learning/cpp_primer/16p1/Blob.h"
 
 template<typename T>
+class BlobPtr;
+
+template<typename T>
+bool operator==(const BlobPtr<T>& lhs, const BlobPtr<T>& rhs);
+//cause here we need BlobPtr<T> as parameter, so need templacte class BlobPtr forward declartion here
+
+template<typename T>
+bool operator<(const BlobPtr<T>& lhs, const BlobPtr<T>& rhs);
+
+template<typename T>
 class BlobPtr{
+friend bool operator== <>(const BlobPtr<T>& lhs, const BlobPtr<T>& rhs);
+//friend bool operator< <>(const BlobPtr<T>& lhs, const BlobPtr<T>& rhs);
+friend bool operator< <T>(const BlobPtr<T>& lhs, const BlobPtr<T>& rhs);
+//use both operator< <> or operator< <T> are ok, it can be deduced
+
 public:
     BlobPtr():wp_blob(nullptr), curr(0){}
     BlobPtr(const Blob<T>& Blob_obj, size_t sz = 0):wp_blob(Blob_obj.data), curr(sz){}
@@ -18,6 +33,8 @@ public:
     BlobPtr& operator--();
     BlobPtr operator++(int);
     BlobPtr operator--(int);
+
+
 
 
 private:
@@ -77,4 +94,19 @@ BlobPtr<T> BlobPtr<T>::operator--(int) {
     return ret; //return old state
 }
 
+//non-member friend func
+template<typename T> inline
+bool operator==(const BlobPtr<T>& lhs, const BlobPtr<T>& rhs){
+    //weak_ptr have no ==
+    //return lhs.wp_blob == rhs.wp_blob && lhs.curr == rhs.curr;
+
+    //shared_ptr have ==
+    return lhs.wp_blob.lock() == rhs.wp_blob.lock() && lhs.curr == rhs.curr;
+
+}
+
+template<typename T> inline
+bool operator<(const BlobPtr<T>& lhs, const BlobPtr<T>& rhs){
+    return lhs.wp_blob.lock() == rhs.wp_blob.lock() && lhs.curr < rhs.curr; //only pointed to same vec memory, then compare curr
+}
 #endif
