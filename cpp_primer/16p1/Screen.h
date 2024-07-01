@@ -6,27 +6,31 @@
 #include <iostream>
 
 typedef std::string::size_type pos;
-
+template<pos H, pos W>
+class Screen;
+template<pos H, pos W>
+std::istream& operator>> (std::istream& is, Screen<H, W>& obj);
 template<pos H, pos W>
 class Screen
 {
 friend inline std::ostream& operator<<(std::ostream& os, const Screen& obj){return os << obj.contents;}
 //generates a non-template operator<< for this T
 
-//if want to generate a template version operator<<, need to declare before class Screen
-friend inline std::istream& operator>>(std::istream& is, Screen& obj){
-    std::string read_word;
-    is >> read_word;
-    obj.contents = obj.contents + read_word;
+//if want to generate a template version operator<<, need to declare before class Screen implementation
+// friend inline std::istream& operator>>(std::istream& is, Screen& obj){
+//     std::string read_word;
+//     is >> read_word;
+//     obj.contents = obj.contents + read_word;
 
-    obj.height = (obj.contents).size()/ (obj.width);
+//     obj.height = (obj.contents).size()/ (obj.width);
 
-    if(((obj.contents).size() % (obj.width)) > 0){
-        ++obj.height;
-    }
+//     if(((obj.contents).size() % (obj.width)) > 0){
+//         ++obj.height;
+//     }
 
-    return is;
-}
+//     return is;
+// }
+friend std::istream& operator>> <>(std::istream& is, Screen& obj);
 
 public:
     
@@ -105,6 +109,21 @@ template<pos H, pos W>
 pos Screen<H, W>::size() const
 {
     return height * width;
+}
+
+template<pos H, pos W>
+inline std::istream& operator>>(std::istream& is, Screen<H, W>& obj){
+    std::string read_word;
+    is >> read_word;
+    obj.contents = obj.contents + read_word;
+
+    obj.height = (obj.contents).size()/ (obj.width);
+
+    if(((obj.contents).size() % (obj.width)) > 0){
+        ++obj.height;
+    }
+
+    return is;
 }
 
 
