@@ -16,6 +16,7 @@ public:
     //here typename to tell the compiler size_type is a type, not class template
     Blob();
     Blob(std::initializer_list<T> il);
+    template <typename IT>Blob(IT b, IT e);
     Blob(const Blob& orig);
     Blob& operator=(const Blob& rhs);
 
@@ -49,6 +50,10 @@ Blob<T>::Blob(std::initializer_list<T> il):data(std::make_shared<std::vector<T>>
 
 // template<typename T>
 // Blob<T>::Blob(const Blob<T>& orig):data(new std::vector<T>(*(orig.data))){}
+
+template<typename T>
+template <typename IT>
+Blob<T>::Blob(IT b, IT e):data(std::make_shared<std::vector<T>>(b, e)){}
 
 template<typename T>
 Blob<T>::Blob(const Blob<T>& orig){

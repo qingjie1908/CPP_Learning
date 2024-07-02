@@ -40,4 +40,8 @@ int main()
         std::cout << "BlobPtr2 < BlobPtr1" << std::endl;
     }
 
+    //ex 16.24
+    std::vector<std::string> vec1 = {"a", "vv", "sdaf"};
+    Blob<std::string> Blob_str4(vec1.begin(), vec1.end()); 
+
 }
