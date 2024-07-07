@@ -3,7 +3,15 @@
 #include <string>
 #include <iostream>
 // pwd, /Users/qingjie/github/CPP_Learning/cpp_primer/2p6/Sales_data.h
+
+//ex 16.62, define hash<Sales_data>
+//forward declaration
+//template<typename T> class std::hash; //need for friend decalation of std::hash<Sales_data>::operator()
+//error: class template "std::__1::hash" may not be redeclared in the current scope
+
 class Sales_data {
+friend class std::hash<Sales_data>;
+//Because that instantiation is defined in the std namespace, we must remember to that this hash type is defined in the std namespace. Hence, our friend declara- tion refers to std::hash.
 // add friend declaration of nonmember function add() print() read(), otherwise these non-member func cannot use Sales_data private members
 friend Sales_data add(const Sales_data&, const Sales_data&);
 friend std::ostream &print(std::ostream&, const Sales_data&);
@@ -191,3 +199,26 @@ Sales_data& Sales_data::operator=(const std::string& ps){
     return *this;
 }
 
+//ex 16.62, define hash<Sales_data>
+namespace std { //open namespace std
+template<>               //define a specialization with
+struct hash<Sales_data>{ //the template parameter of Sales_data
+    typedef size_t result_type; //return type of operator()
+    typedef Sales_data argument_type; //argument type of operator(), this type need ==
+    size_t operator()(const Sales_data& obj) const;
+    // our class uses synthesized copy control and default constructor
+};
+//define operator outside of struct
+//A good hash function will (almost always) yield different results for objects that are not equal
+//delegate the complexity of defining a good hash function to the li- brary.
+inline
+size_t hash<Sales_data>::operator()(const Sales_data& obj) const {
+    return hash<std::string>()(obj.bookNo) ^
+           hash<unsigned int>()(obj.units_sold) ^
+           hash<double>()(obj.revenue);
+           //use an (unnamed) hash<string> object to generate a hash code for bookNo, 
+           //an object of type hash<unsigned> to gener- ate a hash from units_sold, 
+           //and an object of type hash<double> to generate a hash from revenue. 
+           //use XOR to bind an overall hashcode for the given obj
+}
+}//close namespace std
