@@ -1,5 +1,5 @@
 {
-    "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
     "C_Cpp.default.cppStandard": "c++20",
     "C_Cpp.default.cStandard": "c17",
     "clang.cxxflags": [
@@ -70,8 +70,16 @@
         "stack": "cpp",
         "map": "cpp",
         "__tree": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "memory_resource": "cpp",
+        "queue": "cpp",
+        "unordered_set": "cpp"
     },
     "clangd.checkUpdates": true,
-    "makefile.makefilePath": "/Users/qingjie/github/CPP_Learning/cpp_primer/13p4"
+    "makefile.makefilePath": "",
+    "makefile.makeDirectory": "${fileDirname}",
+    "lldb.dereferencePointers": false,
+    "lldb.displayFormat": "auto",
+    "lldb.showDisassembly": "always",
+    "lldb.consoleMode": "commands"
 }

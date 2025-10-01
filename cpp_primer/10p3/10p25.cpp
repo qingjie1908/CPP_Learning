@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <functional> //for bind
+#include <algorithm>
 
 //put vector of string in alphabetical order and remove duplicates
 void elimDups(std::vector<std::string> &vec_s)

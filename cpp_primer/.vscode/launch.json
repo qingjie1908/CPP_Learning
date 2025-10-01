@@ -1,6 +1,7 @@
 {
     "configurations": [
 
+
         {
             "name": "(lldb) Launch",
             "type": "lldb",
@@ -8,6 +9,8 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "cwd": "${fileDirname}",
+            "preLaunchTask": "C/C++: g++ build active file",
+            "stopOnEntry": true,
         },
         {
             "name": "C/C++: g++ build and debug active file",
@@ -16,7 +19,7 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "targetArchitecture": "arm64",
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
@@ -32,14 +35,38 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "targetArchitecture": "arm64",
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
+            //"coreDumpPath": "${fileDirname}",
+            "windows": {
+                "MIMode": "gdb"
+            },
             "osx": {
                 "MIMode": "lldb"
             },
             "preLaunchTask": "C/C++: g++ build active file curdir"
+        },
+        {
+            "name": "C/C++: g++ build and debug some file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "targetArchitecture": "arm64",
+            "stopAtEntry": true,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "coreDumpPath": "${fileDirname}",
+            "windows": {
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "preLaunchTask": "C/C++: g++ build some file"
         }
     ],
     "version": "2.0.0"

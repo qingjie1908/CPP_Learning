@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <functional> //for bind function
+#include <algorithm>
 
 bool isshoter(const std::string &s1, const std::string &s2)
 {

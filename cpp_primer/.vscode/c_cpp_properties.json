@@ -13,9 +13,9 @@
             "cppStandard": "c++20",
             "intelliSenseMode": "macos-clang-arm64",
             "compilerArgs": [
-                "-std=c++20"
+                "-std=c++20 -Wall"
             ],
-            "compilerPath": "/usr/bin/clang++"
+            "compilerPath": "/usr/bin/g++"
         }
     ],
     "version": 4

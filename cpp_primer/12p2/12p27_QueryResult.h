@@ -6,6 +6,16 @@
 #include <memory>
 #include <vector>
 
+//ex 16.22
+class DebugDelete{
+public:
+    DebugDelete(std::ostream& os_p = std::cout):os(os_p){}
+    template<typename T>
+    void operator()(T* p){delete p; std::cout << "DebugDelete called" << std::endl;}
+private:
+    std::ostream& os;
+};
+
 class QueryResult{
 friend std::ostream& print(std::ostream& os, QueryResult& result_obj);
 public:
@@ -25,6 +35,7 @@ public:
     
 private:
     //shared_ptr to hold a result vec, element is a pair <line number, line_string>
+    //inclass initializer use direct form, = or {}, so change () to {}
     std::shared_ptr<std::vector<std::pair<int, std::string>>> p_result;
 
     //p_occur hold count of how many times requrest word appear in the file
